@@ -76,7 +76,7 @@ export default function PropertyList() {
                 <Button
                   className="w-full bg-blue-500 font-bold hover:bg-blue-600"
                   onClick={() => {
-                    router.push(`/property/update/${property.id}`)
+                    router.push(`/property/details/${property.id}`)
                   }}
                 >
                   Detalhes

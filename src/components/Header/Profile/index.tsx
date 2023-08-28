@@ -1,48 +1,31 @@
-import { useState } from 'react'
-import { Avatar, Button, useBreakpointValue } from '@chakra-ui/react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/hooks/useAuth'
-import { DrawerProfile } from './DrawerProfile'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { RiLogoutBoxRLine } from 'react-icons/ri'
 
 export function Profile() {
-  const { user } = useAuth()
-  const [openModal, setOpenModal] = useState(false)
-
-  const isWideVersion = useBreakpointValue<boolean>({
-    base: false,
-    lg: true,
-  })
+  const { signOut } = useAuth()
 
   return (
     <div className="items-end">
-      {isWideVersion ? (
-        <div className="flex items-center">
-          <p>{user.username}</p>
-          <Button
-            _focus={{ outline: 'none' }}
-            variant="link"
-            onClick={() => setOpenModal(true)}
-          >
-            <Avatar size="sm" name={user.name} />
-          </Button>
-        </div>
-      ) : (
-        <div className="mr-2 text-center">
-          <Button
-            _focus={{ outline: 'none' }}
-            variant="link"
-            onClick={() => setOpenModal(true)}
-          >
-            <Avatar size="xs" name={user.name} />
-          </Button>
-        </div>
-      )}
-
-      <DrawerProfile
-        username={user.username}
-        isOpen={openModal}
-        type={user.role}
-        onClose={() => setOpenModal(false)}
-      />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Avatar className="cursor-pointer">
+            <AvatarFallback className="bg-zinc-800">CJS</AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56">
+          <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+            <RiLogoutBoxRLine className="mr-2 h-4 w-4" />
+            <span>Sair</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }

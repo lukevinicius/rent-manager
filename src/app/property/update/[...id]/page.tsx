@@ -74,10 +74,8 @@ export default function UpdateProperty() {
   useEffect(() => {
     async function getProperty() {
       await api
-        .get(`/property/get-property-by-id`, {
-          params: {
-            propertyId: pathname.split('/').pop(),
-          },
+        .post(`/property/by-id`, {
+          id: pathname.split('/').pop(),
         })
         .then((response) => {
           setLoading(false)

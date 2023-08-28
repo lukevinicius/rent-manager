@@ -1,7 +1,18 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest) {
+interface IResponse {
+  name: string
+  status: boolean
+  street: string
+  number: string
+  neighborhood: string
+  city: string
+  state: string
+  zip: string
+}
+
+export async function POST(request: NextRequest) {
   const data = await request.json()
 
   const property = await prisma.property.findUnique({
@@ -11,6 +22,7 @@ export async function GET(request: NextRequest) {
     select: {
       name: true,
       status: true,
+      address: true,
     },
   })
 
@@ -18,5 +30,16 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Property not found' }, { status: 404 })
   }
 
-  return NextResponse.json({ property })
+  const response: IResponse = {
+    name: property.name,
+    status: property.status,
+    street: property.address.street,
+    number: property.address.number,
+    neighborhood: property.address.neighborhood,
+    city: property.address.city,
+    state: property.address.state,
+    zip: property.address.zip,
+  }
+
+  return NextResponse.json(response)
 }
