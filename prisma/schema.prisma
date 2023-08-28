@@ -1,0 +1,92 @@
+// This is your schema file
+// learn more about it in the docs  Sttps /Spris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  username       String?      @unique
+  password       String?
+  email          String       @unique
+  cpf            String?      @unique
+  phone          String?
+  status         Boolean      @default(true)
+  role           String       @default("CUSTOMER")
+  customerInfo   CustomerInfo @relation(fields: [customerInfoId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  Contract       Contract[]
+  customerInfoId String       @db.ObjectId
+}
+
+model CustomerInfo {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  isRenter    Boolean  @default(true)
+  lastAddress Address  @relation(fields: [addressId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  addressId   String   @db.ObjectId
+  User        User[]
+}
+
+model Property {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  photo     String[]
+  address   Address    @relation(fields: [addressId], references: [id])
+  contract  Contract[]
+  status    Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  addressId String     @db.ObjectId
+}
+
+model Address {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  street       String
+  number       String
+  neighborhood String
+  city         String
+  state        String
+  zip          String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  CustomerInfo CustomerInfo[]
+  Property     Property[]
+}
+
+model Contract {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  startDate    DateTime
+  endDate      DateTime
+  rentValue    Int
+  rentDeposit  Int
+  readjustment Int
+  status       Boolean   @default(false)
+  Property     Property  @relation(fields: [propertyId], references: [id])
+  userId       String    @db.ObjectId
+  user         User      @relation(fields: [userId], references: [id])
+  propertyId   String    @db.ObjectId
+  Payment      Payment[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Payment {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  contractId   String   @db.ObjectId
+  Contract     Contract @relation(fields: [contractId], references: [id])
+  paymentDate  DateTime
+  paymentValue Int
+  status       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
