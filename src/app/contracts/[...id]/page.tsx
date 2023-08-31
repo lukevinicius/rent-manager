@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/axios'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -26,6 +28,14 @@ interface IContract {
   }
   status: boolean
   qtdPayments: string
+  payments: {
+    id: string
+    status: boolean
+    paymentValue: number
+    paymentDate: Date
+    createdAt: Date
+    updatedAt: Date
+  }[]
 }
 
 export default function ContractById() {
@@ -142,6 +152,70 @@ export default function ContractById() {
             Mais informações
           </Button>
         </div>
+      </div>
+      <p className="text-xl font-bold">Pagamentos deste contrato</p>
+      <div className="space-y-5 overflow-x-auto">
+        <table className="w-full rounded-xl bg-zinc-700">
+          <thead className="border-b-[1px]">
+            <tr className="text-center">
+              <th className="p-3">Criado em:</th>
+              <th className="p-3">Valor</th>
+              <th className="p-3">Dia do Pagamento</th>
+              <th className="p-3">Status</th>
+              <th className="p-3">Atualização</th>
+              <th className="p-3"></th>
+            </tr>
+          </thead>
+          <tbody className="p-5">
+            {contract?.payments ? (
+              contract?.payments.map((payment) => (
+                <tr key={payment.id} className="p-5 text-center">
+                  <td className="p-3">
+                    {dayjs(payment.createdAt).format('DD/MM/YYYY')}
+                  </td>
+                  <td className="p-3">
+                    {payment.paymentValue.toLocaleString('pt-br', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    })}
+                  </td>
+                  <td className="p-3">
+                    {dayjs(payment.paymentDate).format('DD/MM/YYYY')}
+                  </td>
+                  <td className="p-3">
+                    {payment.status ? (
+                      <p className="rounded-full bg-green-500 p-1 text-zinc-50">
+                        Pago
+                      </p>
+                    ) : dayjs().isAfter(payment.paymentDate) ? (
+                      <p className="rounded-full bg-red-500 p-1 text-zinc-50">
+                        Atrasado
+                      </p>
+                    ) : (
+                      <p className="rounded-full bg-blue-500 p-1 text-zinc-50">
+                        Em Aberto
+                      </p>
+                    )}
+                  </td>
+                  <td className="p-3">
+                    {dayjs(payment.updatedAt)
+                      .locale('pt-br')
+                      .format('DD/MM/YYYY HH:MM:ss')}
+                  </td>
+                  <td className="space-y-3 p-3">
+                    <Button className="w-full bg-green-600 font-bold hover:bg-green-700">
+                      Pagar
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td className="text-center">Carregando...</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   )

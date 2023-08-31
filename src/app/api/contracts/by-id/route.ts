@@ -22,6 +22,14 @@ interface IResponse {
   }
   status: boolean
   qtdPayments: string
+  payments: {
+    id: string
+    status: boolean
+    paymentValue: number
+    paymentDate: Date
+    createdAt: Date
+    updatedAt: Date
+  }[]
 }
 
 export async function POST(request: NextRequest) {
@@ -51,6 +59,10 @@ export async function POST(request: NextRequest) {
         select: {
           id: true,
           status: true,
+          paymentValue: true,
+          paymentDate: true,
+          createdAt: true,
+          updatedAt: true,
         },
       },
       status: true,
@@ -69,6 +81,23 @@ export async function POST(request: NextRequest) {
       email: contract.user.email,
       phone: contract.user.phone || '',
     },
+    payments: contract.Payment.map((payment) => ({
+      id: payment.id,
+      status: payment.status,
+      paymentValue: payment.paymentValue / 100,
+      paymentDate: payment.paymentDate,
+      createdAt: payment.createdAt,
+      updatedAt: payment.updatedAt,
+      // sort by date asc
+    })).sort((a, b) => {
+      if (a.paymentDate > b.paymentDate) {
+        return -1
+      }
+      if (a.paymentDate < b.paymentDate) {
+        return 1
+      }
+      return 0
+    }),
     status: contract.status,
     qtdPayments: `${
       contract.Payment.filter((payment) => payment.status === true).length
