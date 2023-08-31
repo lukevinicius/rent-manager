@@ -24,7 +24,11 @@ export default function RootLayout({
         <Providers>
           <div className="bg-[#3d3d3d]">
             {user?.id && <Header />}
-            <div className="mx-auto flex h-[calc(100vh-80px)]">
+            <div
+              className={`mx-auto flex ${
+                user?.id ? 'h-[calc(100vh-80px)]' : 'h-screen'
+              } `}
+            >
               {pathname.split('/')[1] !== 'sign-in' && <Sidebar />}
               <div className="w-full overflow-auto">{children}</div>
             </div>
