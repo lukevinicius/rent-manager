@@ -78,7 +78,7 @@ export default function PropertyDetails() {
               </div>
               <div className="flex flex-col space-y-3 laptop:w-1/6">
                 <Button
-                  className="w-full bg-yellow-600 font-bold hover:bg-yellow-700"
+                  className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"
                   onClick={() => {
                     router.push(`/property/update/${pathname.split('/').pop()}`)
                   }}

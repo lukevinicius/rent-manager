@@ -33,7 +33,7 @@ export function Header() {
             <Logo />
           </div>
 
-          {user.token && <Profile />}
+          {user?.token && <Profile />}
         </div>
       </header>
     </>

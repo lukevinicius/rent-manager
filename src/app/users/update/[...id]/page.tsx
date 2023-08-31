@@ -67,10 +67,8 @@ export default function UpdateUser() {
 
   useEffect(() => {
     async function getUser() {
-      const { data } = await api.get(`/users/user-by-id`, {
-        params: {
-          userId: pathname.split('/').pop(),
-        },
+      const { data } = await api.post(`/users/by-id`, {
+        userId: pathname.split('/').pop(),
       })
 
       updateUserForm.reset(data)
@@ -115,7 +113,7 @@ export default function UpdateUser() {
               Cancelar
             </Button>
             <Button
-              className="mt-3 bg-yellow-500 font-bold text-zinc-50 hover:bg-yellow-600"
+              className="mt-3 bg-yellow-500 font-bold text-zinc-50 hover:bg-yellow-500"
               type="submit"
             >
               {isSubmitting ? (

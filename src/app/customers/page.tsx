@@ -9,8 +9,10 @@ import { useToast } from '@chakra-ui/react'
 interface ICustomers {
   id: string
   name: string
+  cpf: string
   username: string
   email: string
+  phone: string
   role: string
 }
 
@@ -81,9 +83,9 @@ export default function Customers() {
           <thead className="border-b-[1px]">
             <tr className="text-center">
               <th className="p-3">Nome</th>
-              <th className="p-3">Usuário</th>
+              <th className="p-3">CPF</th>
               <th className="p-3">Email</th>
-              <th className="p-3">Função</th>
+              <th className="p-3">Telefone</th>
               <th className="p-3">Ações</th>
             </tr>
           </thead>
@@ -92,13 +94,22 @@ export default function Customers() {
               customers.map((user) => (
                 <tr key={user.id} className="p-5 text-center">
                   <td className="p-3">{user.name}</td>
-                  <td className="p-3">{user.username}</td>
+                  <td className="p-3">{user.cpf}</td>
                   <td className="p-3">{user.email}</td>
-                  <td className="p-3">{user.role}</td>
+                  <td className="p-3">{user.phone}</td>
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"
-                      className="w-full bg-yellow-600 font-bold hover:bg-yellow-700"
+                      className="w-full bg-blue-500 font-bold hover:bg-blue-600"
+                      onClick={() => {
+                        router.push(`/customers/${user.id}`)
+                      }}
+                    >
+                      Detalhes
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"
                       onClick={() => {
                         router.push(`/customers/update/${user.id}`)
                       }}

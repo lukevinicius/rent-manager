@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import { RiEyeLine, RiEyeOffLine, RiLoaderLine } from 'react-icons/ri'
 import { useAuth } from '@/hooks/useAuth'
+import { Logo } from '@/components/Header/Logo'
 
 const signInFormSchema = z.object({
   // required: true
@@ -43,7 +44,10 @@ export default function SignIn() {
 
   return (
     <div className="flex h-[calc(100vh-80px)] items-center justify-center text-zinc-50">
-      <div className="w-96 rounded-2xl bg-zinc-800 p-7 laptop:p-10">
+      <div className="w-96 rounded-2xl bg-zinc-800 p-5 laptop:p-10">
+        <div className="flex justify-center p-10">
+          <Logo />
+        </div>
         <FormProvider {...signInForm}>
           <form onSubmit={handleSubmit(handleSignIn)}>
             <div className="space-y-3">

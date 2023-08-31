@@ -82,10 +82,8 @@ export default function UpdateCustomer() {
 
   useEffect(() => {
     async function getCustomer() {
-      const { data } = await api.get(`/users/user-by-id`, {
-        params: {
-          userId: pathname.split('/').pop(),
-        },
+      const { data } = await api.post(`/users/by-id`, {
+        userId: pathname.split('/').pop(),
       })
 
       updateCustomerForm.reset(data)

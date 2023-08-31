@@ -2,12 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import {
-  AuthContext,
-  SignInCredentials,
-  UpdateContactForm,
-  UpdatePasswordForm,
-} from '../hooks/useAuth'
+import { AuthContext, SignInCredentials } from '../hooks/useAuth'
 import { api } from '@/lib/axios'
 import { useToast } from '@chakra-ui/react'
 // import { api } from '@/lib/api'
@@ -86,86 +81,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push('/sign-in')
   }
 
-  async function updateUserContact({
-    password,
-    email,
-    phone,
-  }: UpdateContactForm) {
-    await api
-      .put(`/user/update-contact`, {
-        userId: user.id,
-        password,
-        email,
-        phone,
-      })
-      .then(async () => {
-        setUser({
-          ...user,
-          email,
-        })
-
-        await sessionStorage.setItem(
-          userStorageKey,
-          JSON.stringify({
-            ...user,
-            email,
-            phone,
-          }),
-        )
-
-        /* toast({
-          title: 'Dados atualizados com sucesso.',
-          description: `Seus dados foram atualizados com sucesso`,
-          status: 'success',
-          position: 'top',
-          duration: 5000,
-          isClosable: true,
-        }) */
-      })
-      .catch(() => {
-        /* toast({
-          title: 'Erro ao atualizar usuário.',
-          description: `${err.response.data.message}`,
-          status: 'error',
-          position: 'top',
-          duration: 5000,
-          isClosable: true,
-        }) */
-      })
-  }
-
-  async function updateUserPassword({
-    oldPassword,
-    newPassword,
-  }: UpdatePasswordForm) {
-    await api
-      .put(`/user/update-password`, {
-        userId: user.id,
-        oldPassword,
-        newPassword,
-      })
-      .then(() => {
-        /* toast({
-          title: 'Dados atualizados com sucesso.',
-          description: `Seus dados foram atualizados com sucesso`,
-          status: 'success',
-          position: 'top',
-          duration: 5000,
-          isClosable: true,
-        }) */
-      })
-      .catch(() => {
-        /* toast({
-          title: 'Erro ao atualizar usuário.',
-          description: `${err.response.data.message}`,
-          status: 'error',
-          position: 'top',
-          duration: 5000,
-          isClosable: true,
-        }) */
-      })
-  }
-
   useEffect(() => {
     async function loadUserStorageData() {
       const userStoraged = await sessionStorage.getItem(userStorageKey)
@@ -187,8 +102,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         user,
         isAuthenticated,
-        updateUserContact,
-        updateUserPassword,
         signIn,
         signOut,
       }}

@@ -61,7 +61,7 @@ export default function PropertyList() {
           Criar imóvel
         </Button>
       </div>
-      <div className="overflow-x-auto rounded-xl bg-zinc-700 p-5 max-laptop:space-y-5">
+      <div className="space-y-5 overflow-x-auto rounded-xl bg-zinc-700 p-5">
         {propertys ? (
           propertys.map((property) => (
             <div
@@ -82,7 +82,7 @@ export default function PropertyList() {
                   Detalhes
                 </Button>
                 <Button
-                  className="w-full bg-yellow-600 font-bold hover:bg-yellow-700"
+                  className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"
                   onClick={() => {
                     router.push(`/property/update/${property.id}`)
                   }}
@@ -124,7 +124,7 @@ export default function PropertyList() {
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"
-                      className="w-full bg-yellow-600 font-bold hover:bg-yellow-700"
+                      className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"
                       onClick={() => {
                         router.push(`/property/update/${property.id}`)
                       }}

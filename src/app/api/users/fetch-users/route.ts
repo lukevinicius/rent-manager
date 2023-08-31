@@ -4,8 +4,10 @@ import { NextRequest, NextResponse } from 'next/server'
 interface IResponse {
   id: string
   name: string
+  cpf: string
   username: string
   email: string
+  phone: string
   role: string
 }
 
@@ -20,8 +22,10 @@ export async function POST(request: NextRequest) {
     select: {
       id: true,
       name: true,
+      cpf: true,
       username: true,
       email: true,
+      phone: true,
       role: true,
     },
   })
@@ -34,8 +38,10 @@ export async function POST(request: NextRequest) {
     return {
       id: user.id,
       name: user.name,
+      cpf: user.cpf || '',
       username: user.username || '',
       email: user.email,
+      phone: user.phone || '',
       role: user.role,
     }
   })

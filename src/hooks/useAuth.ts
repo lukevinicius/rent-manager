@@ -18,18 +18,9 @@ export interface UpdatePasswordForm {
 }
 
 interface AuthContextData {
-  user: IUser
+  user: IUser | undefined
   isAuthenticated: boolean
   signIn: (credentials: SignInCredentials) => Promise<void>
-  updateUserContact: ({
-    password,
-    email,
-    phone,
-  }: UpdateContactForm) => Promise<void>
-  updateUserPassword: ({
-    oldPassword,
-    newPassword,
-  }: UpdatePasswordForm) => Promise<void>
   signOut: () => void
 }
 

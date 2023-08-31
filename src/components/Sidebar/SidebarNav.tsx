@@ -14,7 +14,7 @@ export function SidebarNav() {
 
   return (
     <div className="rounded-xl bg-zinc-900">
-      {(user.role === 'ADMIN' || user.role === 'SUPORT') && (
+      {(user?.role === 'ADMIN' || user?.role === 'SUPORT') && (
         <NavSection title="Administração">
           <NavLink href="/users">
             <>

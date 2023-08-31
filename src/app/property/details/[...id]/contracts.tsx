@@ -90,7 +90,16 @@ export function PropertyContracts() {
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"
-                      className="w-full bg-yellow-600 font-bold hover:bg-yellow-700"
+                      className="w-full bg-blue-600 font-bold hover:bg-blue-700"
+                      onClick={() => {
+                        router.push(`/contracts/${contract.id}`)
+                      }}
+                    >
+                      Detalhes
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"
                       onClick={() => {
                         router.push(`/contracts/update/${contract.id}`)
                       }}
