@@ -106,21 +106,21 @@ export default function PropertyList() {
         {/* <table className="w-full rounded-xl bg-zinc-700">
           <thead className="border-b-[1px]">
             <tr className="text-center">
-              <th className="p-3">Nome</th>
-              <th className="p-3">Usuário</th>
-              <th className="p-3">Email</th>
-              <th className="p-3">Função</th>
-              <th className="p-3">Ações</th>
+              <th className="p-3 text-sm">Nome</th>
+              <th className="p-3 text-sm">Usuário</th>
+              <th className="p-3 text-sm">Email</th>
+              <th className="p-3 text-sm">Função</th>
+              <th className="p-3 text-sm">Ações</th>
             </tr>
           </thead>
           <tbody className="p-5">
             {propertys ? (
               propertys.map((property) => (
                 <tr key={property.id} className="p-5 text-center">
-                  <td className="p-3">{property.name}</td>
-                  <td className="p-3">{property.address.city}</td>
-                  <td className="p-3">{property.address.city}</td>
-                  <td className="p-3">{property.address.city}</td>
+                  <td className="p-3 text-sm">{property.name}</td>
+                  <td className="p-3 text-sm">{property.address.city}</td>
+                  <td className="p-3 text-sm">{property.address.city}</td>
+                  <td className="p-3 text-sm">{property.address.city}</td>
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"

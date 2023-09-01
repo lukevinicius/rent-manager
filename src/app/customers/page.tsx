@@ -82,21 +82,21 @@ export default function Customers() {
         <table className="w-full rounded-xl bg-zinc-700">
           <thead className="border-b-[1px]">
             <tr className="text-center">
-              <th className="p-3">Nome</th>
-              <th className="p-3">CPF</th>
-              <th className="p-3">Email</th>
-              <th className="p-3">Telefone</th>
-              <th className="p-3">Ações</th>
+              <th className="p-3 text-sm">Nome</th>
+              <th className="p-3 text-sm">CPF</th>
+              <th className="p-3 text-sm">Email</th>
+              <th className="p-3 text-sm">Telefone</th>
+              <th className="p-3 text-sm">Ações</th>
             </tr>
           </thead>
           <tbody className="p-5">
             {customers ? (
               customers.map((user) => (
                 <tr key={user.id} className="p-5 text-center">
-                  <td className="p-3">{user.name}</td>
-                  <td className="p-3">{user.cpf}</td>
-                  <td className="p-3">{user.email}</td>
-                  <td className="p-3">{user.phone}</td>
+                  <td className="p-3 text-sm">{user.name}</td>
+                  <td className="p-3 text-sm">{user.cpf}</td>
+                  <td className="p-3 text-sm">{user.email}</td>
+                  <td className="p-3 text-sm">{user.phone}</td>
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"

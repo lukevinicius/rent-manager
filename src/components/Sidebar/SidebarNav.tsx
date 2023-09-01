@@ -1,6 +1,7 @@
 import {
   RiArticleLine,
   RiContactsLine,
+  RiHandCoinLine,
   RiHome2Line,
   RiUserSettingsLine,
 } from 'react-icons/ri'
@@ -43,6 +44,12 @@ export function SidebarNav() {
           <>
             <RiArticleLine />
             <p className="ml-4">Meus Contratos</p>
+          </>
+        </NavLink>
+        <NavLink href="/payments">
+          <>
+            <RiHandCoinLine />
+            <p className="ml-4">Pagamentos</p>
           </>
         </NavLink>
       </NavSection>

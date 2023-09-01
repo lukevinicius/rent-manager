@@ -3,6 +3,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 interface IResponse {
   id: string
+  rentDeposit: number
+  readjustment: number
+  rentValue: number
+  startDate: Date
+  endDate: Date
   property: {
     id: string
     name: string
@@ -16,6 +21,7 @@ interface IResponse {
     }
   }
   customer: {
+    id: string
     name: string
     email: string
     phone: string
@@ -41,6 +47,11 @@ export async function POST(request: NextRequest) {
     },
     select: {
       id: true,
+      rentDeposit: true,
+      readjustment: true,
+      rentValue: true,
+      startDate: true,
+      endDate: true,
       Property: {
         select: {
           id: true,
@@ -50,6 +61,7 @@ export async function POST(request: NextRequest) {
       },
       user: {
         select: {
+          id: true,
           name: true,
           email: true,
           phone: true,
@@ -75,8 +87,14 @@ export async function POST(request: NextRequest) {
 
   const response: IResponse = {
     id: contract.id,
+    rentDeposit: contract.rentDeposit / 100,
+    readjustment: contract.readjustment / 100,
+    rentValue: contract.rentValue / 100,
+    startDate: contract.startDate,
+    endDate: contract.endDate,
     property: contract.Property,
     customer: {
+      id: contract.user.id,
       name: contract.user.name,
       email: contract.user.email,
       phone: contract.user.phone || '',

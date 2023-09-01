@@ -80,21 +80,21 @@ export default function Users() {
         <table className="w-full rounded-xl bg-zinc-700">
           <thead className="border-b-[1px]">
             <tr className="text-center">
-              <th className="p-3">Nome</th>
-              <th className="p-3">Usuário</th>
-              <th className="p-3">Email</th>
-              <th className="p-3">Função</th>
-              <th className="p-3">Ações</th>
+              <th className="p-3 text-sm">Nome</th>
+              <th className="p-3 text-sm">Usuário</th>
+              <th className="p-3 text-sm">Email</th>
+              <th className="p-3 text-sm">Função</th>
+              <th className="p-3 text-sm">Ações</th>
             </tr>
           </thead>
           <tbody className="p-5">
             {users ? (
               users.map((user) => (
                 <tr key={user.id} className="p-5 text-center">
-                  <td className="p-3">{user.name}</td>
-                  <td className="p-3">{user.username}</td>
-                  <td className="p-3">{user.email}</td>
-                  <td className="p-3">{user.role}</td>
+                  <td className="p-3 text-sm">{user.name}</td>
+                  <td className="p-3 text-sm">{user.username}</td>
+                  <td className="p-3 text-sm">{user.email}</td>
+                  <td className="p-3 text-sm">{user.role}</td>
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"

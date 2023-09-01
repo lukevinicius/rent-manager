@@ -76,23 +76,23 @@ export default function Contracts() {
         <table className="w-full rounded-xl bg-zinc-700">
           <thead className="border-b-[1px]">
             <tr className="text-center">
-              <th className="p-3">Imóvel</th>
-              <th className="p-3">Cliente</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Alugueis pagos</th>
-              <th className="p-3">Ações</th>
+              <th className="p-3 text-sm">Imóvel</th>
+              <th className="p-3 text-sm">Cliente</th>
+              <th className="p-3 text-sm">Status</th>
+              <th className="p-3 text-sm">Alugueis pagos</th>
+              <th className="p-3 text-sm">Ações</th>
             </tr>
           </thead>
           <tbody className="p-5">
             {contracts ? (
               contracts.map((contract) => (
                 <tr key={contract.id} className="p-5 text-center">
-                  <td className="p-3">{contract.property}</td>
-                  <td className="p-3">{contract.customer}</td>
-                  <td className="p-3">
+                  <td className="p-3 text-sm">{contract.property}</td>
+                  <td className="p-3 text-sm">{contract.customer}</td>
+                  <td className="p-3 text-sm">
                     {contract.status ? 'Finalizado' : 'Em andamento'}
                   </td>
-                  <td className="p-3">{contract.qtdPayments}</td>
+                  <td className="p-3 text-sm">{contract.qtdPayments}</td>
                   <td className="space-y-3 p-3">
                     <Button
                       size="sm"
