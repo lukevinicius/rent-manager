@@ -90,7 +90,7 @@ export default function CreateContract() {
           setCustomers(response.data)
         })
 
-      await api.get('/property/fetch').then((response) => {
+      await api.post('/property/fetch').then((response) => {
         setPropertys(response.data)
       })
     }

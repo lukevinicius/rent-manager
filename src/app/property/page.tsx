@@ -30,7 +30,7 @@ export default function PropertyList() {
     })
 
     if (response.status === 200) {
-      await api.get('/property/fetch').then((response) => {
+      await api.post('/property/fetch').then((response) => {
         setPropertys(response.data)
       })
     }
@@ -38,7 +38,7 @@ export default function PropertyList() {
 
   useEffect(() => {
     async function getPropertys() {
-      const users = await api.get('/property/fetch').then((response) => {
+      const users = await api.post('/property/fetch').then((response) => {
         setPropertys(response.data)
       })
 
