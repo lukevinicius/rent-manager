@@ -56,7 +56,7 @@ export default function UserById() {
             size="sm"
             className="w-full bg-yellow-500 font-bold hover:bg-yellow-500"
             onClick={() => {
-              router.push(`/customers/update/${user?.name}`)
+              router.push(`/customers/update/${user?.id}`)
             }}
           >
             Editar

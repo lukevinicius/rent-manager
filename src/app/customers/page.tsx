@@ -116,7 +116,7 @@ export default function Customers() {
                     >
                       Editar
                     </Button>
-                    <Button
+                    {/* <Button
                       size="sm"
                       className="w-full bg-red-600 font-bold hover:bg-red-700"
                       onClick={() => {
@@ -124,7 +124,7 @@ export default function Customers() {
                       }}
                     >
                       Excluir
-                    </Button>
+                    </Button> */}
                   </td>
                 </tr>
               ))

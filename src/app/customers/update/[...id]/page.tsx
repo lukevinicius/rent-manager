@@ -43,7 +43,7 @@ export default function UpdateCustomer() {
     data: UpdateCustomerFormProps,
   ) => {
     await api
-      .put('/users/update-user', {
+      .put('/users/update-customer', {
         userId: pathname.split('/').pop(),
         name: data.name,
         email: data.email,
