@@ -19,9 +19,9 @@ export default function Contracts() {
   const toast = useToast()
   const [contracts, setContracts] = useState<contracts[] | undefined>([])
 
-  async function handleDeleteUser(contractId: string) {
+  async function handleDeleteContract(contractId: string) {
     await api
-      .delete('/contracts/delete-contract', {
+      .delete('/contracts/delete', {
         data: {
           contractId,
         },
@@ -116,7 +116,7 @@ export default function Contracts() {
                       size="sm"
                       className="w-full bg-red-600 font-bold hover:bg-red-700"
                       onClick={() => {
-                        handleDeleteUser(contract.id)
+                        handleDeleteContract(contract.id)
                       }}
                     >
                       Excluir
