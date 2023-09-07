@@ -15,12 +15,12 @@ const createUserFormSchema = z.object({
   cpf: z.string(),
   phone: z.string(),
   email: z.string().email('O email deve ser válido'),
-  zip: z.string().min(8, 'O CEP deve ter no mínimo 8 caracteres'),
+  zip: z.string(),
   state: z.string(),
-  city: z.string().min(3, 'A cidade deve ter no mínimo 3 caracteres'),
-  neighborhood: z.string().min(3, 'O bairro deve ter no mínimo 3 caracteres'),
-  street: z.string().min(3, 'A rua deve ter no mínimo 3 caracteres'),
-  number: z.string().min(1, 'O número deve ter no mínimo 1 caractere'),
+  city: z.string(),
+  neighborhood: z.string(),
+  street: z.string(),
+  number: z.string(),
 })
 
 type CreateUserFormProps = z.infer<typeof createUserFormSchema>
@@ -41,7 +41,7 @@ export default function CreateUser() {
     data: CreateUserFormProps,
   ) => {
     await api
-      .post('/create-user', {
+      .post('/users/create-user', {
         name: data.name,
         email: data.email,
         role: 'CUSTOMER',

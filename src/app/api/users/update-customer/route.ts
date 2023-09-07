@@ -18,12 +18,12 @@ export async function PUT(request: NextRequest) {
         update: {
           lastAddress: {
             update: {
-              zip: data.zip,
-              state: data.state,
-              city: data.city,
-              neighborhood: data.neighborhood,
-              street: data.street,
-              number: data.number,
+              zip: data.address.zip,
+              state: data.address.state,
+              city: data.address.city,
+              neighborhood: data.address.neighborhood,
+              street: data.address.street,
+              number: data.address.number,
             },
           },
         },

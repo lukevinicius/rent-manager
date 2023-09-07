@@ -61,7 +61,7 @@ export default function UserById() {
           >
             Editar
           </Button>
-          <Button
+          {/* <Button
             size="sm"
             className="w-full bg-red-500 font-bold hover:bg-red-600"
             onClick={() => {
@@ -69,7 +69,7 @@ export default function UserById() {
             }}
           >
             Excluir
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div className="justify-between max-laptop:space-y-3 laptop:flex">

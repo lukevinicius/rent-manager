@@ -51,7 +51,7 @@ export default function CreateUser() {
     }
 
     await api
-      .post('/create-user', {
+      .post('/users/create-user', {
         name: data.name,
         username: data.username,
         email: data.email,
