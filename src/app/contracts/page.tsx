@@ -1,10 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@chakra-ui/react'
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 
 interface contracts {
   id: string
@@ -28,7 +40,7 @@ export default function Contracts() {
       })
       .then(() => {
         toast({
-          title: 'Usuário excluído com sucesso',
+          title: 'Contrato excluído com sucesso',
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -38,7 +50,7 @@ export default function Contracts() {
       })
       .catch((error) => {
         toast({
-          title: 'Erro ao excluir usuário',
+          title: 'Erro ao excluir contrato',
           description: error.response.data.message,
           status: 'error',
           duration: 3000,
@@ -112,15 +124,38 @@ export default function Contracts() {
                     >
                       Editar
                     </Button>
-                    <Button
-                      size="sm"
-                      className="w-full bg-red-600 font-bold hover:bg-red-700"
-                      onClick={() => {
-                        handleDeleteContract(contract.id)
-                      }}
-                    >
-                      Excluir
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          size="sm"
+                          className="w-full bg-red-600 font-bold hover:bg-red-700"
+                        >
+                          Excluir
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="bg-zinc-900 text-zinc-50">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                          <AlertDialogDescription className="text-zinc-50">
+                            Esta ação ira apagar esse contrato e todos os
+                            pagamentos referentes a ele.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="bg-zinc-800">
+                            Cancelar
+                          </AlertDialogCancel>
+                          <AlertDialogAction
+                            className="bg-red-600 hover:bg-red-700"
+                            onClick={() => {
+                              handleDeleteContract(contract.id)
+                            }}
+                          >
+                            Sim
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </td>
                 </tr>
               ))

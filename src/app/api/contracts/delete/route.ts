@@ -4,21 +4,35 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function DELETE(request: NextRequest) {
   const data = await request.json()
 
-  // Exclude the contract
-  const deleteContract = prisma.contract.delete({
+  // Exclude the contract and all its payments
+  const payments = await prisma.payment.findMany({
     where: {
-      id: data.userId,
+      contractId: data.contractId,
     },
   })
 
-  // Exclude all payments from this contract
+  const paymentIds = payments.map((payment) => payment.id)
+
   const deletePayments = prisma.payment.deleteMany({
     where: {
-      contractId: data.userId,
+      id: {
+        in: paymentIds,
+      },
     },
   })
 
-  await prisma.$transaction([deleteContract, deletePayments])
+  const deleteContract = prisma.contract.delete({
+    where: {
+      id: data.contractId,
+    },
+  })
 
-  return NextResponse.json({ message: 'User Deleted' }, { status: 200 })
+  await prisma.$transaction([deletePayments, deleteContract])
+
+  return NextResponse.json({
+    status: 200,
+    data: {
+      message: 'Contrato excluído com sucesso!',
+    },
+  })
 }

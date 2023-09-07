@@ -13,7 +13,6 @@ interface IResponse {
 
 export async function POST(request: NextRequest) {
   const data = await request.json()
-  console.log(data)
 
   const users = await prisma.user.findMany({
     where: {

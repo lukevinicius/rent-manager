@@ -25,6 +25,17 @@ interface IPayments {
 export default function Payments() {
   const [payments, setPayments] = useState<IPayments[] | null>(null)
 
+  async function handleUpdateStatusPayment(paymentId: string, status: boolean) {
+    await api
+      .put('/payments/update-status', {
+        paymentId,
+        status,
+      })
+      .then((response) => {
+        setPayments(response.data.data)
+      })
+  }
+
   useEffect(() => {
     async function getPayments() {
       await api.post('/payments/fetch').then((response) => {
@@ -33,7 +44,7 @@ export default function Payments() {
     }
 
     getPayments()
-  })
+  }, [])
 
   return (
     <div className="m-3 space-y-3 rounded-xl bg-zinc-800 p-3 text-zinc-50 laptop:m-5 laptop:space-y-5 laptop:p-5">
@@ -57,18 +68,16 @@ export default function Payments() {
             <tr className="text-center">
               <th className="p-3 text-sm">Cliente</th>
               <th className="p-3 text-sm">Valor</th>
-              <th className="p-3 text-sm">Dia do Pagamento</th>
+              <th className="p-3 text-sm">Dia do Vencimento</th>
               <th className="p-3 text-sm">Status</th>
-              <th className="p-3 text-sm"></th>
+              <th className="p-3 text-sm">Atualizado em:</th>
             </tr>
           </thead>
           <tbody className="p-5">
             {payments ? (
               payments.map((payment) => (
                 <tr key={payment.id} className="p-5 text-center">
-                  <td className="p-3 text-sm">
-                    {dayjs(payment.createdAt).format('DD/MM/YYYY')}
-                  </td>
+                  <td className="p-3 text-sm">{payment.customer.name}</td>
                   <td className="p-3 text-sm">{payment.paymentValue}</td>
                   <td className="p-3 text-sm">
                     {dayjs(payment.paymentDate).format('DD/MM/YYYY')}
@@ -94,9 +103,25 @@ export default function Payments() {
                       .format('DD/MM/YYYY HH:MM:ss')}
                   </td>
                   <td className="space-y-3 p-3">
-                    <Button className="w-full bg-green-600 font-bold hover:bg-green-700">
-                      Pagar
-                    </Button>
+                    {!payment.status ? (
+                      <Button
+                        className="w-full bg-green-600 font-bold hover:bg-green-700"
+                        onClick={() =>
+                          handleUpdateStatusPayment(payment.id, payment.status)
+                        }
+                      >
+                        Pagar
+                      </Button>
+                    ) : (
+                      <Button
+                        className="w-full bg-red-600 font-bold hover:bg-red-700"
+                        onClick={() =>
+                          handleUpdateStatusPayment(payment.id, payment.status)
+                        }
+                      >
+                        Cancelar pagamento
+                      </Button>
+                    )}
                   </td>
                 </tr>
               ))

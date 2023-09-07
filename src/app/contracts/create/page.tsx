@@ -145,6 +145,7 @@ export default function CreateContract() {
               <Form.Field>
                 <Form.Label htmlFor="propertyId">Imóvel</Form.Label>
                 <Form.Select name="propertyId">
+                  <option value="">Selecione a propriedade</option>
                   {propertys &&
                     propertys.map((property) => (
                       <option key={property.id} value={property.id}>
@@ -157,6 +158,7 @@ export default function CreateContract() {
               <Form.Field>
                 <Form.Label htmlFor="userId">Cliente</Form.Label>
                 <Form.Select name="userId">
+                  <option value="">Selecione o cliente</option>
                   {customers &&
                     customers.map((customer) => (
                       <option key={customer.id} value={customer.id}>
