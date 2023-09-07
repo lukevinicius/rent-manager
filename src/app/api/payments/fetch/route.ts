@@ -33,6 +33,9 @@ export async function POST() {
         },
       },
     },
+    orderBy: {
+      paymentDate: 'desc',
+    },
   })
 
   const response: IResponse[] = payments.map((payment) => {

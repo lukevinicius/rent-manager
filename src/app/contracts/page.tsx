@@ -115,7 +115,7 @@ export default function Contracts() {
                     >
                       Detalhes
                     </Button>
-                    <Button
+                    {/* <Button
                       size="sm"
                       className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"
                       onClick={() => {
@@ -123,7 +123,7 @@ export default function Contracts() {
                       }}
                     >
                       Editar
-                    </Button>
+                    </Button> */}
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
