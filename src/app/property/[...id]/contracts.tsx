@@ -22,14 +22,14 @@ export function PropertyContracts() {
 
   async function handleDeleteUser(contractId: string) {
     await api
-      .delete('/contracts/delete-contract', {
+      .delete('/contracts/delete', {
         data: {
           contractId,
         },
       })
       .then(() => {
         toast({
-          title: 'Usuário excluído com sucesso',
+          title: 'Contrato excluído com sucesso',
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -39,7 +39,7 @@ export function PropertyContracts() {
       })
       .catch((error) => {
         toast({
-          title: 'Erro ao excluir usuário',
+          title: 'Erro ao excluir contrato',
           description: error.response.data.message,
           status: 'error',
           duration: 3000,

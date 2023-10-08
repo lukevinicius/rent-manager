@@ -7,6 +7,7 @@ import { api } from '@/lib/axios'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { PropertyContracts } from './contracts'
+import { useToast } from '@chakra-ui/react'
 
 interface IProperty {
   name: string
@@ -22,19 +23,30 @@ interface IProperty {
 export default function PropertyDetails() {
   const pathname = usePathname()
   const router = useRouter()
+  const toast = useToast()
   const [loading, setLoading] = useState(true)
   const [property, setProperty] = useState<IProperty>({} as IProperty)
 
   async function handleDeleteProperty() {
-    const response = await api.delete(`/property/delete`, {
-      params: {
-        propertyId: pathname.split('/').pop(),
-      },
-    })
-
-    if (response.status === 200) {
-      router.push('/property')
-    }
+    await api
+      .delete(`/property/delete`, {
+        data: {
+          propertyId: pathname.split('/').pop(),
+        },
+      })
+      .then(() => {
+        router.push('/property')
+      })
+      .catch((error) => {
+        toast({
+          title: 'Erro ao excluir imóvel',
+          description: error.response.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right',
+        })
+      })
   }
 
   useEffect(() => {
@@ -97,20 +109,11 @@ export default function PropertyDetails() {
             </div>
           </div>
           <Tabs defaultValue="account">
-            <TabsList className="grid w-full grid-cols-2 bg-zinc-900 text-zinc-50">
-              <TabsTrigger value="client-detail">Cliente atual</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-1 bg-zinc-900 text-zinc-50">
               <TabsTrigger value="contracts">
                 Contratos deste imóvel
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="client-detail">
-              <p>Cliente atual</p>
-              <p>Nome do cliente</p>
-              <p>CPF do cliente</p>
-              <p>Telefone do cliente</p>
-              <p>Email do cliente</p>
-              <p>Endereço do cliente</p>
-            </TabsContent>
             <TabsContent value="contracts">
               <PropertyContracts />
             </TabsContent>

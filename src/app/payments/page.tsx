@@ -6,11 +6,13 @@ import 'dayjs/locale/pt-br'
 
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/axios'
+import { useRouter } from 'next/navigation'
 
 interface IPayments {
   id: string
   status: boolean
   paymentValue: string
+  contractId: string
   paymentDate: Date
   createdAt: Date
   updatedAt: Date
@@ -23,6 +25,7 @@ interface IPayments {
 }
 
 export default function Payments() {
+  const router = useRouter()
   const [payments, setPayments] = useState<IPayments[] | null>(null)
 
   async function handleUpdateStatusPayment(paymentId: string, status: boolean) {
@@ -122,6 +125,15 @@ export default function Payments() {
                         Cancelar pagamento
                       </Button>
                     )}
+                    <Button
+                      size="sm"
+                      className="w-full bg-blue-600 font-bold hover:bg-blue-700"
+                      onClick={() => {
+                        router.push(`/contracts/${payment.contractId}`)
+                      }}
+                    >
+                      Detalhes do contrato
+                    </Button>
                   </td>
                 </tr>
               ))

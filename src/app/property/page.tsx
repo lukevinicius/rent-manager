@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { api } from '@/lib/axios'
+import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -20,20 +21,37 @@ interface IPropertys {
 
 export default function PropertyList() {
   const router = useRouter()
+  const toast = useToast()
   const [propertys, setPropertys] = useState<IPropertys[] | undefined>([])
 
   async function handleDeleteProperty(id: string) {
-    const response = await api.delete(`/property/delete`, {
-      params: {
-        propertyId: id,
-      },
-    })
-
-    if (response.status === 200) {
-      await api.post('/property/fetch').then((response) => {
-        setPropertys(response.data)
+    await api
+      .delete(`/property/delete`, {
+        data: {
+          propertyId: id,
+        },
       })
-    }
+      .then(async () => {
+        toast({
+          title: 'Imóvel excluído com sucesso',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+
+        await api.post('/property/fetch').then((response) => {
+          setPropertys(response.data)
+        })
+      })
+      .catch((error) => {
+        toast({
+          title: 'Erro ao excluir imóvel',
+          description: error.response.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      })
   }
 
   useEffect(() => {

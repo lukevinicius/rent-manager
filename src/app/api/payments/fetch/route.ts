@@ -20,14 +20,10 @@ export async function POST() {
   // const newPeriod = FormatPeriodToDate(data.period)
 
   const payments = await prisma.payment.findMany({
-    where: {
-      /*       paymentDate: {
-        gte: newPeriod,
-      }, */
-    },
     include: {
       Contract: {
-        include: {
+        select: {
+          id: true,
           Property: true,
           user: true,
         },
@@ -46,6 +42,7 @@ export async function POST() {
         style: 'currency',
         currency: 'BRL',
       }),
+      contractId: payment.Contract.id,
       property: {
         id: payment.Contract.Property.id,
         name: payment.Contract.Property.name,

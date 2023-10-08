@@ -59,11 +59,13 @@ export default function SignIn() {
               <Form.Field>
                 <Form.Label htmlFor="password">Senha</Form.Label>
                 <div className="flex">
-                  <Form.Input
-                    placeholder="Sua senha"
-                    type={seePassword ? 'text' : 'password'}
-                    name="password"
-                  />
+                  <div className="w-full">
+                    <Form.Input
+                      placeholder="Sua senha"
+                      type={seePassword ? 'text' : 'password'}
+                      name="password"
+                    />
+                  </div>
                   <Button
                     size="icon"
                     onClick={() => setSeePassword(!seePassword)}

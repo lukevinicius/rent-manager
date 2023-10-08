@@ -125,12 +125,12 @@ export default function CreateContract() {
             </Form.Field>
             <Form.Field>
               <Form.Label htmlFor="rentDeposit">Valor do calção</Form.Label>
-              <Form.Input name="rentDeposit" />
+              <Form.Input name="rentDeposit" placeholder='Ex: "1000.00"' />
               <Form.ErrorMessage field="rentDeposit" />
             </Form.Field>
             <Form.Field>
               <Form.Label htmlFor="rentValue">Valor do aluguel</Form.Label>
-              <Form.Input name="rentValue" />
+              <Form.Input name="rentValue" placeholder='Ex: "1000.00"' />
               <Form.ErrorMessage field="rentValue" />
             </Form.Field>
             <Form.Field>
