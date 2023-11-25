@@ -138,7 +138,7 @@ export default function UpdateProperty() {
               <Button
                 className="mt-3 bg-red-500 font-bold text-zinc-50 hover:bg-red-600 max-laptop:w-full"
                 type="button"
-                onClick={() => router.push('/property')}
+                onClick={() => router.back()}
               >
                 Cancelar
               </Button>

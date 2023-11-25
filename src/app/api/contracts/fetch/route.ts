@@ -18,11 +18,7 @@ export async function GET() {
           name: true,
         },
       },
-      user: {
-        select: {
-          name: true,
-        },
-      },
+      userId: true,
       Payment: {
         select: {
           id: true,
@@ -33,11 +29,19 @@ export async function GET() {
     },
   })
 
+  const user = await prisma.user.findMany({
+    where: {
+      id: {
+        in: contracts.map((contract) => contract.userId),
+      },
+    },
+  })
+
   const response: IResponse[] = contracts.map((contract) => {
     return {
       id: contract.id,
       property: contract.Property.name,
-      customer: contract.user.name,
+      customer: user.find((user) => user.id === contract.userId)?.name || '',
       status: contract.status,
       qtdPayments: `${
         contract.Payment.filter((payment) => payment.status === true).length

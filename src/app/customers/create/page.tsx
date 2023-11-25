@@ -151,7 +151,7 @@ export default function CreateUser() {
             <Button
               className="mt-3 bg-red-500 font-bold text-zinc-50 hover:bg-red-600"
               type="button"
-              onClick={() => router.push('/customers')}
+              onClick={() => router.back()}
             >
               Cancelar
             </Button>

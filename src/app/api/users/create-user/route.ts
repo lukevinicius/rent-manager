@@ -1,8 +1,11 @@
 import { prisma } from '@/lib/prisma'
+import bcrypt from 'bcrypt'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   const data = await request.json()
+
+  const passwordEncrypted = await bcrypt.hash(data.password, 10)
 
   await prisma.user.create({
     data: {
@@ -12,17 +15,18 @@ export async function POST(request: NextRequest) {
       role: data.role,
       cpf: data.cpf || '',
       phone: data.phone || '',
+      password: passwordEncrypted,
       customerInfo: {
         create: {
           isRenter: true,
           lastAddress: {
             create: {
-              street: data.address.street || '',
-              number: data.address.number || '',
-              neighborhood: data.address.neighborhood || '',
-              city: data.address.city || '',
-              state: data.address.state || '',
-              zip: data.address.zip || '',
+              street: data.address?.street || '',
+              number: data.address?.number || '',
+              neighborhood: data.address?.neighborhood || '',
+              city: data.address?.city || '',
+              state: data.address?.state || '',
+              zip: data.address?.zip || '',
             },
           },
         },
