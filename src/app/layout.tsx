@@ -20,9 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="bg-[#3d3d3d]">
-            <Header />
-            <div className="mx-auto flex h-[calc(100vh-80px)]">
+          <div className="bg-zinc-900">
+            {pathname.split('/')[1] !== 'sign-in' && <Header />}
+            <div className="min-s-screen mx-auto flex h-[calc(100vh-80px)]">
               {pathname.split('/')[1] !== 'sign-in' && <Sidebar />}
               <div className="w-full overflow-auto">{children}</div>
             </div>

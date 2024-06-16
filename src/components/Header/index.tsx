@@ -1,8 +1,8 @@
 'use client'
 
 import { useAuth } from '@/hooks/useAuth'
-import { Logo } from './Logo'
 import { Profile } from './Profile'
+import { Logo } from '@/components/Logo'
 import { useSidebarDrawer } from '@/containers/SidebarDrawerProvider'
 import { RiMenu2Line } from 'react-icons/ri'
 import { useBreakpointValue } from '@chakra-ui/react'

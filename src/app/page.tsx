@@ -1,6 +1,6 @@
 'use client'
 
-import { Logo } from '@/components/Header/Logo'
+import { Logo } from '@/components/Logo'
 import { useAuth } from '@/hooks/useAuth'
 
 export default function Home() {
