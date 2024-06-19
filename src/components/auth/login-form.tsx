@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { login } from '@/actions/login'
-import { LoginSchema, LoginSchemaType } from '@/schemas'
+import { LoginSchema, LoginSchemaType } from '@/schemas/login'
 
 import {
   Form,
@@ -46,14 +46,14 @@ export function LoginForm() {
             description: 'Você está logado com sucesso.',
             duration: 3000,
           })
-          replace('/back-office')
+          replace('/back-office/users')
         }
       })
     })
   }
 
   return (
-    <CardWrapper headerLabel="Bem vindo de volta">
+    <CardWrapper headerLabel="Welcome back">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
@@ -62,7 +62,7 @@ export function LoginForm() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="username">Usuário</FormLabel>
+                  <FormLabel htmlFor="username">Username</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

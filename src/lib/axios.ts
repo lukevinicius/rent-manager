@@ -20,7 +20,7 @@ async function refreshAccessToken() {
     })
     .then((response) => response.data)
     .catch(() => {
-      window.location.replace('sign-in')
+      window.location.replace('auth/login')
     })
 
   const newAccessToken = data.token

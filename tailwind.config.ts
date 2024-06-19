@@ -18,9 +18,8 @@ module.exports = {
     screens: {
       sm: '640px',
       md: '768px',
-      laptop: '1024px',
-      desktop: '1366px',
-      ultrawide: '1920px',
+      lg: '1024px',
+      xl: '1366px',
     },
     extend: {
       gridTemplateColumns: {
