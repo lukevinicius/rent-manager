@@ -1,71 +1,25 @@
-'use client'
-
+import { getContractById } from '@/actions/get-contract-by-id'
+import { DetailsButton } from '@/components/details-buttom'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { api } from '@/lib/axios'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { RiArticleFill, RiContactsFill, RiHome2Fill } from 'react-icons/ri'
 
-interface IContract {
-  id: string
-  rentDeposit: number
-  readjustment: number
-  rentValue: number
-  startDate: Date
-  endDate: Date
-  property: {
+interface ContractByIdProps {
+  params: {
     id: string
-    name: string
-    address: {
-      street: string
-      number: string
-      neighborhood: string
-      city: string
-      state: string
-      zip: string
-    }
   }
-  customer: {
-    id: string
-    name: string
-    email: string
-    phone: string
-  }
-  status: boolean
-  qtdPayments: string
-  payments: {
-    id: string
-    status: boolean
-    paymentValue: number
-    paymentDate: Date
-    createdAt: Date
-    updatedAt: Date
-  }[]
 }
 
-export default function ContractById() {
-  const pathname = usePathname()
-  const router = useRouter()
-  const [contract, setContract] = useState<IContract | undefined>()
-
-  useEffect(() => {
-    async function getContracts() {
-      const contracts = await api
-        .post('/contracts/by-id', {
-          contractId: pathname.split('/').pop(),
-        })
-        .then((response) => {
-          setContract(response.data)
-        })
-
-      return contracts
-    }
-
-    getContracts()
-  }, [pathname])
+export default async function ContractById({ params }: ContractByIdProps) {
+  const { contract } = await getContractById({
+    body: {
+      contractId: params.id,
+    },
+  }).then((response) => {
+    return response
+  })
 
   return (
     <div className="space-y-4 bg-zinc-900 text-zinc-50">
@@ -157,15 +111,11 @@ export default function ContractById() {
           <p className="text-sm">
             <strong>Número: </strong> {contract?.property.address.number}
           </p>
-          <Button
-            size="sm"
-            className="w-full bg-blue-500 font-bold hover:bg-blue-600"
-            onClick={() => {
-              router.push(`/property/${contract?.property.id}`)
-            }}
-          >
-            Mais informações
-          </Button>
+          <div>
+            <DetailsButton
+              href={`/back-office/property/${contract?.property.id}`}
+            />
+          </div>
         </Card>
         <Card className="space-y-2 border-none bg-zinc-800 p-4 text-zinc-50">
           <div className="flex items-center space-x-2">
@@ -182,18 +132,18 @@ export default function ContractById() {
           <p className="text-sm">
             <strong>Telefone: </strong> {contract?.customer.phone}
           </p>
-          <Button
-            size="sm"
-            className="w-full bg-blue-500 font-bold hover:bg-blue-600"
-            onClick={() => {
-              router.push(`/customers/${contract?.customer.id}`)
-            }}
-          >
-            Mais informações
-          </Button>
+
+          <div>
+            <DetailsButton
+              href={`/back-office/customers/${contract?.customer.id}`}
+            />
+          </div>
         </Card>
       </div>
-      <p className="text-lg font-bold">Pagamentos deste contrato</p>
+      <div className="flex items-center justify-between rounded-xl bg-zinc-800 p-4">
+        <p className="text-2xl font-bold">Pagamentos deste contrato</p>
+      </div>
+
       <div className="space-y-3 overflow-x-auto">
         <table className="w-full rounded-xl bg-zinc-700">
           <thead className="border-b-[1px]">

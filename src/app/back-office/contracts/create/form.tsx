@@ -72,7 +72,7 @@ export default function CreateContractForm({
           duration: 3000,
           isClosable: true,
         })
-        router.push('/contracts')
+        router.push('/back-office/contracts')
       })
       .catch((error) => {
         toast({
