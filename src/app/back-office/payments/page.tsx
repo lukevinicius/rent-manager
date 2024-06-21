@@ -1,10 +1,7 @@
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 
-import { Button } from '@/components/ui/button'
-
 import { fetchPayments } from '@/actions/fetch-payments'
-import Link from 'next/link'
 
 export default async function Payments() {
   const payments = await fetchPayments()

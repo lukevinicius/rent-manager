@@ -17,7 +17,6 @@ import { useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@/components/ui/use-toast'
 
 interface UpdateCustomerFormProps {
   customer: {
@@ -50,7 +49,6 @@ const formSchema = z.object({
 type FormProps = z.infer<typeof formSchema>
 
 export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
-  const toast = useToast()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const form = useForm<FormProps>({
@@ -60,7 +58,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
     },
   })
 
-  async function onSubmit(values: FormProps) {
+  async function onSubmit() {
     startTransition(() => {
       /* await api
         .put('/users/update-customer', {

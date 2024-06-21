@@ -4,6 +4,8 @@ interface ErrorMessageProps {
   field: string
 }
 
+// disable-next-line
+// eslint-disable-next-line
 function get(obj: Record<any, any>, path: string) {
   const travel = (regexp: RegExp) =>
     String.prototype.split

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@chakra-ui/react'
 
 interface ICustomers {
   id: string
@@ -18,10 +17,9 @@ interface ICustomers {
 
 export default function Customers() {
   const router = useRouter()
-  const toast = useToast()
   const [customers, setCustomers] = useState<ICustomers[] | undefined>([])
 
-  async function handleDeleteCustomers(userId: string) {
+  /* async function handleDeleteCustomers(userId: string) {
     await api
       .delete('/users/delete-user', {
         data: {
@@ -47,7 +45,7 @@ export default function Customers() {
           isClosable: true,
         })
       })
-  }
+  } */
 
   useEffect(() => {
     async function getCustomers() {

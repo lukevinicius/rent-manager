@@ -1,3 +1,5 @@
+import { signOut } from '@/actions/sign-out'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +11,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 
 export function Profile() {
-  // const { signOut } = useAuth()
-
   return (
     <div className="items-end">
       <DropdownMenu>
@@ -20,10 +20,10 @@ export function Profile() {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
-          {/* <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+          <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
             <RiLogoutBoxRLine className="mr-2 h-4 w-4" />
             <span>Sair</span>
-          </DropdownMenuItem> */}
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
