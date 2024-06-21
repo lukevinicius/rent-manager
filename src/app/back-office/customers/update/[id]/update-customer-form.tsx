@@ -13,13 +13,16 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { updateCustomer } from '@/actions/update-customer'
+import { FormError } from '@/components/form-error'
 
 interface UpdateCustomerFormProps {
   customer: {
+    id: string
     name: string
     cpf: string
     phone: string
@@ -50,52 +53,27 @@ type FormProps = z.infer<typeof formSchema>
 
 export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
   const router = useRouter()
+  const [error, setError] = useState<string | undefined>(undefined)
   const [isPending, startTransition] = useTransition()
   const form = useForm<FormProps>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      cpf: customer.cpf,
-    },
+    defaultValues: customer,
   })
 
-  async function onSubmit() {
+  async function onSubmit(data: FormProps) {
     startTransition(() => {
-      /* await api
-        .put('/users/update-customer', {
-          userId: pathname.split('/').pop(),
-          name: data.name,
-          email: data.email,
-          role: 'CUSTOMER',
-          cpf: data.cpf,
-          phone: data.phone,
-          address: {
-            zip: data.zip,
-            state: data.state,
-            city: data.city,
-            neighborhood: data.neighborhood,
-            street: data.street,
-            number: data.number,
-          },
-        })
-        .then(() => {
-          toast({
-            title: 'Cliente editado com sucesso',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          })
+      updateCustomer({
+        body: {
+          userId: customer.id,
+          ...data,
+        },
+      }).then((data) => {
+        setError(data.error)
 
-          router.push('/customers')
-        })
-        .catch((error) => {
-          toast({
-            title: 'Erro ao editar Cliente',
-            description: error.response.data.message,
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-          })
-        }) */
+        if (!data.error) {
+          router.back()
+        }
+      })
     })
   }
 
@@ -114,7 +92,12 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
               <FormItem>
                 <FormLabel htmlFor="name">Nome completo</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isPending} placeholder="name" />
+                  <Input
+                    className="text-zinc-800"
+                    {...field}
+                    disabled={isPending}
+                    placeholder="name"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,7 +110,12 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
               <FormItem>
                 <FormLabel htmlFor="cpf">CPF</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isPending} placeholder="cpf" />
+                  <Input
+                    className="text-zinc-800"
+                    {...field}
+                    disabled={isPending}
+                    placeholder="cpf"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,6 +133,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                   <FormLabel htmlFor="phone">Telefone</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-zinc-800"
                       {...field}
                       disabled={isPending}
                       placeholder="phone"
@@ -162,6 +151,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                   <FormLabel htmlFor="email">Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-zinc-800"
                       {...field}
                       disabled={isPending}
                       placeholder="email"
@@ -183,7 +173,12 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                 <FormItem>
                   <FormLabel htmlFor="zip">CEP</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="zip" />
+                    <Input
+                      className="text-zinc-800"
+                      {...field}
+                      disabled={isPending}
+                      placeholder="zip"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -197,6 +192,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                   <FormLabel htmlFor="state">Estado</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-zinc-800"
                       {...field}
                       disabled={isPending}
                       placeholder="state"
@@ -213,7 +209,12 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                 <FormItem>
                   <FormLabel htmlFor="city">Cidade</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="city" />
+                    <Input
+                      className="text-zinc-800"
+                      {...field}
+                      disabled={isPending}
+                      placeholder="city"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -227,6 +228,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                   <FormLabel htmlFor="neighborhood">Bairro</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-zinc-800"
                       {...field}
                       disabled={isPending}
                       placeholder="neighborhood"
@@ -244,6 +246,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                   <FormLabel htmlFor="street">Rua</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-zinc-800"
                       {...field}
                       disabled={isPending}
                       placeholder="street"
@@ -261,6 +264,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
                   <FormLabel htmlFor="number">N°</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-zinc-800"
                       {...field}
                       disabled={isPending}
                       placeholder="number"
@@ -272,6 +276,7 @@ export function UpdateCustomerForm({ customer }: UpdateCustomerFormProps) {
             />
           </div>
         </div>
+        {error && <FormError message={error} />}
         <div className="flex justify-end space-x-3">
           <Button
             className="mt-3 font-bold text-zinc-50"

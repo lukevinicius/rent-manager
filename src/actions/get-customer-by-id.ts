@@ -6,6 +6,7 @@ interface IRequest {
 
 interface IResponse {
   user?: {
+    id: string
     name: string
     cpf: string
     email: string
@@ -30,7 +31,6 @@ interface IResponse {
 export async function getCustomerById({
   userId,
 }: IRequest): Promise<IResponse> {
-  console.log('userId', userId)
   const user = await prisma.user.findUnique({
     where: {
       id: userId,

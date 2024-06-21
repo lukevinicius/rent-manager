@@ -6,8 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { EditUserButton } from './edit-user-buttom'
 import { DeleteUserButton } from './delete-user-buttom'
+import { EditButton } from '@/components/edit-buttom'
 
 interface UserDataTableProps {
   users: {
@@ -39,7 +39,7 @@ export function UsersDataTable({ users }: UserDataTableProps) {
             <TableCell className="text-center">{user.email}</TableCell>
             <TableCell className="text-center">{user.role}</TableCell>
             <TableCell className="flex space-x-2">
-              <EditUserButton userId={user.id} />
+              <EditButton href={`/back-office/users/update/${user.id}`} />
               <DeleteUserButton userId={user.id} />
             </TableCell>
           </TableRow>

@@ -1,9 +1,10 @@
 import { UsersDataTable } from './data-table'
 import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
 import { CreateUserButton } from './create-user-buttom'
+import { UserTypes } from '@/domain/enums/User'
 
 export default async function Users() {
-  const users = await fetchUsersByRole({ role: 'ADMIN' })
+  const users = await fetchUsersByRole({ role: UserTypes.ADMIN })
 
   return (
     <div className="space-y-4 bg-zinc-900 text-zinc-50">

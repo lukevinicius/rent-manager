@@ -18,6 +18,7 @@ export default async function UpdateCustomer({
       {user && (
         <UpdateCustomerForm
           customer={{
+            id: user.id,
             cpf: user.cpf,
             name: user.name,
             email: user.email,
