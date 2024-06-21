@@ -1,5 +1,5 @@
 import CreateContractForm from './form'
-import { fetchUsersByRole } from '@/actions/fetch-users'
+import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
 import { fetchProperties } from '@/actions/fetch-properties'
 
 async function getDataToContract() {
