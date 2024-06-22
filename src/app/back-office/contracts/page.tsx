@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table'
 import { fetchContracts } from '@/actions/fetch-contracts'
 import Link from 'next/link'
-import { Search } from 'lucide-react'
+import { DetailsButton } from '@/components/details-buttom'
 
 export default async function Contracts() {
   const contracts = await fetchContracts()
@@ -57,15 +57,9 @@ export default async function Contracts() {
                   {contract.qtdPayments}
                 </TableCell>
                 <TableCell className="space-y-3 p-3">
-                  <Link href={`/back-office/contracts/${contract.id}`}>
-                    <Button
-                      size="sm"
-                      className="flex w-full space-x-2 bg-blue-600 font-bold hover:bg-blue-700"
-                    >
-                      <Search size={16} />
-                      <span>Detalhes</span>
-                    </Button>
-                  </Link>
+                  <DetailsButton
+                    href={`/back-office/contracts/${contract.id}`}
+                  />
                   {/* <Button
                       size="sm"
                       className="w-full bg-yellow-500 font-bold hover:bg-yellow-600"

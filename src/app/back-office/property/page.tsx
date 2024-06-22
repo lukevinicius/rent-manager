@@ -94,7 +94,7 @@ export default function PropertyList() {
                 <Button
                   className="w-full bg-blue-500 font-bold hover:bg-blue-600"
                   onClick={() => {
-                    router.push(`/back-office/property/details/${property.id}`)
+                    router.push(`/back-office/property/${property.id}`)
                   }}
                 >
                   Detalhes

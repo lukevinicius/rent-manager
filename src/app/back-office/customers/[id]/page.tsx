@@ -1,6 +1,7 @@
 import { CustomerDetailsCards } from './customer-details-cards'
 import { getCustomerById } from '@/actions/get-customer-by-id'
 import { EditCustomerButton } from '@/app/back-office/customers/[id]/edit-customer-buttom'
+import { CustomerContracts } from './customer-contracts'
 
 export default async function UserById({ params }: { params: { id: string } }) {
   const { user, error } = await getCustomerById({
@@ -26,6 +27,10 @@ export default async function UserById({ params }: { params: { id: string } }) {
         </div>
       </div>
       {user && <CustomerDetailsCards user={user} />}
+      <div className="flex items-center justify-between rounded-xl bg-zinc-800 p-4">
+        {user && <p className="text-2xl font-bold">Contratos deste cliente:</p>}
+      </div>
+      <CustomerContracts userId={params.id} />
     </div>
   )
 }

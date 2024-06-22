@@ -47,10 +47,10 @@ export function CustomersDataTable({ customers }: UserDataTableProps) {
             <TableCell className="text-center">{customer.email}</TableCell>
             <TableCell className="text-center">{customer.phone}</TableCell>
             <TableCell className="flex space-x-2">
+              <DetailsButton href={`/back-office/customers/${customer.id}`} />
               <EditButton
                 href={`/back-office/customers/update/${customer.id}`}
               />
-              <DetailsButton href={`/back-office/customers/${customer.id}`} />
               {/* <DeleteUserButton userId={customer.id} /> */}
             </TableCell>
           </TableRow>
