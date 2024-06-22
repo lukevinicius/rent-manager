@@ -8,8 +8,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  console.log('user', user.id)
-
   if (!user.id) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }

@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 interface IResponse {
   id: string
   status: boolean
-  paymentValue: string
+  paymentValue: number
   paymentDate: Date
   createdAt: Date
   updatedAt: Date
@@ -38,10 +38,7 @@ export async function fetchPayments() {
     return {
       id: payment.id,
       paymentDate: payment.paymentDate,
-      paymentValue: (payment.paymentValue / 100).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }),
+      paymentValue: payment.paymentValue / 100,
       contractId: payment.Contract.id,
       property: {
         id: payment.Contract.Property.id,

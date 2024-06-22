@@ -11,8 +11,6 @@ export async function DELETE(request: NextRequest) {
     },
   })
 
-  console.log(payments)
-
   const paymentIds = payments.map((payment) => payment.id)
 
   const deletePayments = prisma.payment.deleteMany({

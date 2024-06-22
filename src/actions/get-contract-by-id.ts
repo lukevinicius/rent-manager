@@ -35,7 +35,6 @@ interface IResponse {
     status: boolean
     paymentValue: number
     paymentDate: Date
-    createdAt: Date
     updatedAt: Date
   }[]
 }

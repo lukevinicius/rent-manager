@@ -20,8 +20,6 @@ export async function DELETE(request: NextRequest) {
     )
   }
 
-  console.log(property.contract)
-
   if (property.contract.map((contract) => contract.status).includes(false)) {
     return NextResponse.json(
       { message: 'Existe um contrato ativo para essa propriedade' },

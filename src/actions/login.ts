@@ -70,8 +70,6 @@ export async function login(values: LoginSchemaType) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`
 
-    console.log(userLogged)
-
     // expires in 1 hour
     await cookies().set('session', JSON.stringify(userLogged), {
       expires: Date.now() + 1000 * 60 * 60,
