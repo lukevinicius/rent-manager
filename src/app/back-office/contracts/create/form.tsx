@@ -1,18 +1,21 @@
 'use client'
 
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+
+import { useRouter } from 'next/navigation'
+
+import { createContract } from '@/actions/create-contract'
 import { Form } from '@/components/Form'
 import { Button } from '@/components/ui/button'
-import { api } from '@/lib/axios'
-import { useToast } from '@chakra-ui/react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { RiLoaderLine } from 'react-icons/ri'
-import { z } from 'zod'
+import { useToast } from '@/components/ui/use-toast'
 
 const createContractFormSchema = z.object({
   startDate: z.string(),
   endDate: z.string(),
+  paymentDate: z.string(),
   rentValue: z.string(),
   rentDeposit: z.string(),
   readjustment: z.string(),
@@ -41,7 +44,7 @@ export default function CreateContractForm({
   customers,
   properties,
 }: CreateContractFormProps) {
-  const toast = useToast()
+  const { toast } = useToast()
   const router = useRouter()
   const createContractForm = useForm<FormProps>({
     resolver: zodResolver(createContractFormSchema),
@@ -55,34 +58,22 @@ export default function CreateContractForm({
   const handleCreateContract: SubmitHandler<FormProps> = async (
     data: FormProps,
   ) => {
-    await api
-      .post('/contracts/create', {
-        startDate: data.startDate,
-        endDate: data.endDate,
-        rentValue: data.rentValue,
-        rentDeposit: data.rentDeposit,
-        readjustment: data.readjustment,
-        propertyId: data.propertyId,
-        userId: data.userId,
+    const { error } = await createContract(data)
+
+    if (error) {
+      toast({
+        title: 'Erro ao criar contrato',
+        variant: 'destructive',
       })
-      .then(() => {
-        toast({
-          title: 'Contrato criado com sucesso',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        })
-        router.push('/back-office/contracts')
-      })
-      .catch((error) => {
-        toast({
-          title: 'Erro ao criar contrato',
-          description: error.response.data.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-      })
+
+      return
+    }
+
+    toast({
+      title: 'Contrato criado com sucesso',
+    })
+
+    router.push('/back-office/contracts')
   }
 
   return (
@@ -107,6 +98,13 @@ export default function CreateContractForm({
               </Form.Label>
               <Form.Input name="endDate" type="date" />
               <Form.ErrorMessage field="endDate" />
+            </Form.Field>
+            <Form.Field>
+              <Form.Label htmlFor="paymentDate">
+                Data do vencimento de cada pagamento
+              </Form.Label>
+              <Form.Input name="paymentDate" type="date" />
+              <Form.ErrorMessage field="paymentDate" />
             </Form.Field>
             <Form.Field>
               <Form.Label htmlFor="rentDeposit">Valor do calção</Form.Label>
