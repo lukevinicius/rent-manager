@@ -7,6 +7,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 import { PaymentButton } from './payment-button'
 
 interface PaymentsTableProps {
@@ -28,7 +29,7 @@ interface PaymentsTableProps {
 
 export function PaymentsList({ customerName, payments }: PaymentsTableProps) {
   return (
-    <Table className="w-full rounded-xl bg-zinc-700">
+    <Table className="w-full bg-zinc-700">
       <TableHeader>
         <TableRow className="rounded-xl bg-zinc-800 hover:bg-zinc-800">
           <TableHead className="text-center text-zinc-50">Cliente</TableHead>
@@ -78,9 +79,7 @@ export function PaymentsList({ customerName, payments }: PaymentsTableProps) {
               )}
             </TableCell>
             <TableCell className="p-3 text-sm">
-              {dayjs(payment.updatedAt)
-                .locale('pt-br')
-                .format('DD/MM/YYYY HH:MM:ss')}
+              {dayjs(payment.updatedAt).format('DD/MM/YYYY HH:mm')}
             </TableCell>
             <TableCell className="space-y-3 p-3">
               <PaymentButton paymentId={payment.id} status={payment.status} />

@@ -26,7 +26,7 @@ const headCells = ['Nome', 'CPF', 'Email', 'Telefone', 'Ações']
 
 export function CustomersDataTable({ customers }: UserDataTableProps) {
   return (
-    <Table>
+    <Table className="w-full bg-zinc-700">
       <TableHeader>
         <TableRow className="bg-zinc-800  hover:bg-zinc-800">
           {headCells.map((cell) => (
@@ -38,10 +38,7 @@ export function CustomersDataTable({ customers }: UserDataTableProps) {
       </TableHeader>
       <TableBody className="space-y-10">
         {customers.map((customer) => (
-          <TableRow
-            key={customer.id}
-            className="bg-zinc-800  hover:bg-zinc-800"
-          >
+          <TableRow key={customer.id}>
             <TableCell className="text-center">{customer.name}</TableCell>
             <TableCell className="text-center">{customer.cpf}</TableCell>
             <TableCell className="text-center">{customer.email}</TableCell>

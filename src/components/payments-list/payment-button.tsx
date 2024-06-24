@@ -1,6 +1,6 @@
 'use client'
 
-import { changePaymentStatus } from '@/actions/change-payment-status'
+import { updatePaymentStatus } from '@/actions/update-payment-status'
 import { Button } from '@/components/ui/button'
 
 interface PaymentButtonProps {
@@ -10,7 +10,7 @@ interface PaymentButtonProps {
 
 export function PaymentButton({ paymentId, status }: PaymentButtonProps) {
   function handleChangePaymentStatus() {
-    changePaymentStatus({ paymentId, status: !status })
+    updatePaymentStatus({ paymentId, status: !status })
   }
 
   return (
