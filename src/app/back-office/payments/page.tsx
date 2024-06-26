@@ -2,9 +2,10 @@ import 'dayjs/locale/pt-br'
 
 import { fetchPayments } from '@/actions/fetch-payments'
 import { PaymentsList } from '@/components/payments-list'
+import dayjs from 'dayjs'
 
 export default async function Payments() {
-  const payments = await fetchPayments()
+  const payments = await fetchPayments({ limitDate: dayjs().toDate() })
 
   return (
     <div className="space-y-4 bg-zinc-900 text-zinc-50">

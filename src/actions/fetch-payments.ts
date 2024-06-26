@@ -1,5 +1,9 @@
 import { prisma } from '@/lib/prisma'
 
+interface IRequest {
+  limitDate?: Date
+}
+
 interface IResponse {
   id: string
   status: boolean
@@ -16,10 +20,13 @@ interface IResponse {
   }
 }
 
-export async function fetchPayments() {
-  // const newPeriod = FormatPeriodToDate(data.period)
-
+export async function fetchPayments({ limitDate }: IRequest) {
   const payments = await prisma.payment.findMany({
+    where: {
+      paymentDate: {
+        lte: limitDate,
+      },
+    },
     include: {
       Contract: {
         select: {
