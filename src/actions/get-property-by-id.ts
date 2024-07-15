@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 
 interface IResponse {
   id: string
+  photo: string[]
   name: string
   status: boolean
   street: string
@@ -20,6 +21,7 @@ export async function getPropertyById(propertyId: string) {
       id: propertyId,
     },
     select: {
+      photo: true,
       name: true,
       status: true,
       address: true,
@@ -32,6 +34,7 @@ export async function getPropertyById(propertyId: string) {
 
   const data: IResponse = {
     id: propertyId,
+    photo: property.photo,
     name: property.name,
     status: property.status,
     street: property.address.street,

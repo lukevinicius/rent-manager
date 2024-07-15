@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+
+import { useEdgeStore } from '@/lib/edgestore'
 
 import { Form } from '@/components/Form'
 import { Button } from '@/components/ui/button'
@@ -10,6 +13,7 @@ import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { updateProperty } from '@/actions/update-property'
 import { useToast } from '@/components/ui/use-toast'
+import { SingleImageDropzone } from '@/components/single-image-dropzone'
 
 const formSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
@@ -26,6 +30,7 @@ type FormProps = z.infer<typeof formSchema>
 interface UpdatePropertyFormProps {
   property: {
     id: string
+    photo: string[]
     name: string
     zip: string
     state: string
@@ -38,6 +43,8 @@ interface UpdatePropertyFormProps {
 
 export function PropertyUpdateForm({ property }: UpdatePropertyFormProps) {
   const router = useRouter()
+  const { edgestore } = useEdgeStore()
+  const [file, setFile] = useState<File>()
   const { toast } = useToast()
   const updatePropertyForm = useForm<FormProps>({
     resolver: zodResolver(formSchema),
@@ -52,8 +59,23 @@ export function PropertyUpdateForm({ property }: UpdatePropertyFormProps) {
   const handleUpdateProperty: SubmitHandler<FormProps> = async (
     data: FormProps,
   ) => {
+    if (property.photo[0] && file) {
+      await edgestore.publicFiles.delete({
+        url: property.photo[0],
+      })
+    }
+
+    const res = await edgestore.publicFiles.upload({
+      file: file as File,
+      /* onProgressChange: (progress) => {
+        // you can use this to show a progress bar
+        console.log(progress)
+      }, */
+    })
+
     const { error } = await updateProperty({
       propertyId: property.id,
+      photo: res.url,
       name: data.name,
       zip: data.zip,
       state: data.state,
@@ -79,6 +101,23 @@ export function PropertyUpdateForm({ property }: UpdatePropertyFormProps) {
         onSubmit={handleSubmit(handleUpdateProperty)}
         className="space-y-6 rounded-xl bg-zinc-800 p-4"
       >
+        <div className="flex justify-between">
+          {!file && (
+            <img
+              src={property.photo[0]}
+              alt="Imagem do imóvel"
+              className="h-24 w-24"
+            />
+          )}
+          <SingleImageDropzone
+            width={200}
+            height={200}
+            value={file}
+            onChange={(file) => {
+              setFile(file as File)
+            }}
+          />
+        </div>
         <div className="grid gap-4 md:grid-cols-2">
           <Form.Field>
             <Form.Label htmlFor="name">Nome do imóvel</Form.Label>

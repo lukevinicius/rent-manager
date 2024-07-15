@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 
 interface IRequest {
   propertyId: string
+  photo: string
   name: string
   zip: string
   state: string
@@ -16,6 +17,7 @@ interface IRequest {
 
 export async function updateProperty({
   propertyId,
+  photo,
   name,
   zip,
   state,
@@ -30,6 +32,7 @@ export async function updateProperty({
     },
     data: {
       name,
+      photo: [photo],
       address: {
         update: {
           zip,
