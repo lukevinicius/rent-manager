@@ -5,6 +5,7 @@ export async function fetchProperties() {
     select: {
       id: true,
       name: true,
+      photo: true,
       address: {
         select: {
           zip: true,

@@ -28,7 +28,7 @@ export function CustomersDataTable({ customers }: UserDataTableProps) {
   return (
     <Table className="w-full bg-zinc-700">
       <TableHeader>
-        <TableRow className="bg-zinc-800  hover:bg-zinc-800">
+        <TableRow className="bg-zinc-800 hover:bg-zinc-800">
           {headCells.map((cell) => (
             <TableHead key={cell} className="text-center text-zinc-50">
               {cell}
