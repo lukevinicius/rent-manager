@@ -9,6 +9,7 @@ import {
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { PaymentButton } from './payment-button'
+import { UpdatePaymentDateButton } from './update-payment-date-button'
 
 interface PaymentsTableProps {
   customerName?: string
@@ -81,7 +82,8 @@ export function PaymentsList({ customerName, payments }: PaymentsTableProps) {
             <TableCell className="p-3 text-sm">
               {dayjs(payment.updatedAt).format('DD/MM/YYYY HH:mm')}
             </TableCell>
-            <TableCell className="space-y-3 p-3">
+            <TableCell className="flex space-x-2 p-3">
+              <UpdatePaymentDateButton paymentId={payment.id} />
               <PaymentButton paymentId={payment.id} status={payment.status} />
             </TableCell>
           </TableRow>
