@@ -74,7 +74,7 @@ export function PropertyUpdateForm({ property }: UpdatePropertyFormProps) {
 
     const { error } = await updateProperty({
       propertyId: property.id,
-      photo: res?.url || property.photo[0],
+      photo: res?.url || property.photo[0] || '',
       name: data.name,
       zip: data.zip,
       state: data.state,
@@ -90,8 +90,6 @@ export function PropertyUpdateForm({ property }: UpdatePropertyFormProps) {
         variant: 'destructive',
       })
     }
-
-    router.push('/back-office/property')
   }
 
   return (

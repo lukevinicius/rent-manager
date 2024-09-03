@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 interface IRequest {
   propertyId: string
@@ -52,5 +53,5 @@ export async function updateProperty({
 
   revalidatePath('/back-office/property')
 
-  return {}
+  redirect('/back-office/property')
 }
