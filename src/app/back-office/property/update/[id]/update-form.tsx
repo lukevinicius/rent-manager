@@ -65,17 +65,16 @@ export function PropertyUpdateForm({ property }: UpdatePropertyFormProps) {
       })
     }
 
-    const res = await edgestore.publicFiles.upload({
-      file: file as File,
-      /* onProgressChange: (progress) => {
-        // you can use this to show a progress bar
-        console.log(progress)
-      }, */
-    })
+    let res
+    if (file) {
+      res = await edgestore.publicFiles.upload({
+        file: file as File,
+      })
+    }
 
     const { error } = await updateProperty({
       propertyId: property.id,
-      photo: res.url,
+      photo: res?.url || property.photo[0],
       name: data.name,
       zip: data.zip,
       state: data.state,
