@@ -5,7 +5,6 @@ import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
 import { LoginSchema, LoginSchemaType } from '@/schemas/login'
 import { prisma } from '@/lib/prisma'
-import { redirect } from 'next/navigation'
 
 export async function login(values: LoginSchemaType) {
   const validatedFields = LoginSchema.safeParse(values)
@@ -71,8 +70,6 @@ export async function login(values: LoginSchemaType) {
     await cookies().set('session', JSON.stringify(userLogged), {
       expires: Date.now() + 1000 * 60 * 60,
     })
-
-    redirect('/back-office/users')
   } catch (error) {
     console.error(error)
     return {
