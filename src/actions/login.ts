@@ -1,12 +1,11 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
-import { LoginSchema, LoginSchemaType } from '@/schemas/login'
-import { api } from '@/services/api'
-import { AxiosError } from 'axios'
 import { compare } from 'bcryptjs'
 import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
+import { LoginSchema, LoginSchemaType } from '@/schemas/login'
+import { prisma } from '@/lib/prisma'
+import { redirect } from 'next/navigation'
 
 export async function login(values: LoginSchemaType) {
   const validatedFields = LoginSchema.safeParse(values)
@@ -68,28 +67,17 @@ export async function login(values: LoginSchemaType) {
       token,
     }
 
-    api.defaults.headers.Authorization = `Bearer ${token}`
-
     // expires in 1 hour
     await cookies().set('session', JSON.stringify(userLogged), {
       expires: Date.now() + 1000 * 60 * 60,
     })
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      switch (error.response?.status) {
-        case 401:
-          return {
-            error: 'Invalid credentials!',
-          }
-        default:
-          console.error(error)
-          return {
-            error: 'Something went wrong!',
-          }
-      }
-    }
 
-    throw error
+    redirect('/back-office/users')
+  } catch (error) {
+    console.error(error)
+    return {
+      error: 'Something went wrong!',
+    }
   }
 
   return {}

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -23,7 +22,6 @@ import { FormError } from '@/components/form-error'
 import { useToast } from '@/components/ui/use-toast'
 
 export function LoginForm() {
-  const { replace } = useRouter()
   const { toast } = useToast()
   const [error, setError] = useState<string | undefined>(undefined)
   const [isPending, startTransition] = useTransition()
@@ -46,7 +44,6 @@ export function LoginForm() {
             description: 'Você está logado com sucesso.',
             duration: 3000,
           })
-          replace('/back-office/users')
         }
       })
     })
