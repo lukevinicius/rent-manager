@@ -47,7 +47,7 @@ export function LoginForm() {
             duration: 3000,
           })
 
-          router.push('back-office/users')
+          router.push('/back-office/users')
         }
       })
     })
