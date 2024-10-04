@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { RiArticleFill, RiContactsFill, RiHome2Fill } from 'react-icons/ri'
+import { UpdatePaymentValueButton } from './update-payments-value-button'
 
 interface ContractByIdProps {
   params: {
@@ -23,26 +24,6 @@ export default async function ContractById({ params }: ContractByIdProps) {
     <div className="space-y-4 bg-zinc-900 text-zinc-50">
       <div className="flex items-center justify-between rounded-xl bg-zinc-800 p-4">
         <p className="text-2xl font-bold">Contratos</p>
-        {/* <div className="max-lg:space-y-3 lg:flex lg:space-x-3">
-          <Button
-            size="sm"
-            className="w-full bg-yellow-500 font-bold hover:bg-yellow-500"
-            onClick={() => {
-              router.push(`/customers/update/${contract.customer.name}`)
-            }}
-          >
-            Editar
-          </Button>
-          <Button
-            size="sm"
-            className="w-full bg-red-500 font-bold hover:bg-red-600"
-            onClick={() => {
-              router.push(`/customers/update/${contract.customer.name}`)
-            }}
-          >
-            Excluir
-          </Button>
-        </div> */}
       </div>
       {contract && (
         <div className="grid gap-4 lg:grid-cols-3">
@@ -141,8 +122,9 @@ export default async function ContractById({ params }: ContractByIdProps) {
         </div>
       )}
 
-      <div className="flex items-center justify-between rounded-xl bg-zinc-800 p-4">
+      <div className="flex items-center justify-between gap-2 rounded-xl bg-zinc-800 p-4 max-md:flex-col">
         <p className="text-2xl font-bold">Pagamentos deste contrato</p>
+        <UpdatePaymentValueButton contractId={params.id} />
       </div>
 
       {contract && (
