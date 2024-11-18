@@ -1,8 +1,9 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+
+import { prisma } from '@/lib/prisma'
 
 const bodySchema = z.object({
   userId: z.string(),

@@ -1,7 +1,9 @@
-import { UsersDataTable } from './data-table'
-import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
-import { CreateUserButton } from './create-user-buttom'
 import { UserTypes } from '@/domain/enums/User'
+
+import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
+
+import { CreateUserButton } from './create-user-buttom'
+import { UsersDataTable } from './data-table'
 
 export default async function Users() {
   const users = await fetchUsersByRole({ role: UserTypes.ADMIN })

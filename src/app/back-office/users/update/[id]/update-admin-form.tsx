@@ -1,11 +1,14 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 
+import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -16,8 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Loader2 } from 'lucide-react'
-import { FormError } from '@/components/form-error'
+
 import { updateAdmin } from '@/actions/update-admin'
 
 const FormSchema = z.object({

@@ -1,3 +1,6 @@
+import Link from 'next/link'
+
+import { DetailsButton } from '@/components/details-buttom'
 import { Button } from '@/components/ui/button'
 import {
   Table,
@@ -7,9 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+
 import { fetchContracts } from '@/actions/fetch-contracts'
-import Link from 'next/link'
-import { DetailsButton } from '@/components/details-buttom'
 
 export default async function Contracts() {
   const contracts = await fetchContracts()

@@ -1,10 +1,12 @@
-import { TableCell, TableRow } from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+
 import { DetailsButton } from '@/components/details-buttom'
 import { EditButton } from '@/components/edit-buttom'
-import Link from 'next/link'
-import { fetchProperties } from '@/actions/fetch-properties'
 import { DataTable } from '@/components/table'
+import { Button } from '@/components/ui/button'
+import { TableCell, TableRow } from '@/components/ui/table'
+
+import { fetchProperties } from '@/actions/fetch-properties'
 
 export default async function PropertyList() {
   const properties = await fetchProperties()
@@ -28,7 +30,7 @@ export default async function PropertyList() {
               <img src={property.photo[0]} alt="IMG" className="h-24 w-24" />
             </TableCell>
             <TableCell className="text-center">{property.name}</TableCell>
-            <TableCell className="flex flex-1 space-x-2">
+            <TableCell className="flex items-center gap-2">
               <DetailsButton href={`/back-office/property/${property.id}`} />
               <EditButton
                 href={`/back-office/property/update/${property.id}`}

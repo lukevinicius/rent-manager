@@ -1,4 +1,5 @@
 import { getAdminById } from '@/actions/get-admin-by-id'
+
 import { UpdateAdminForm } from './update-admin-form'
 
 interface UpdateAdminProps {

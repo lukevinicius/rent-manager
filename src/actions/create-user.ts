@@ -1,49 +1,61 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcrypt'
 
-export async function createUser() {
-  const data = {
-    name: 'Admin',
-    email: 'admin@mail.com',
-    username: 'admin',
-    role: 'ADMIN',
-    password: 'admin',
-    cpf: '00000000000',
-    phone: '00000000000',
-    address: {
-      street: 'Rua do Admin',
-      number: '123',
-      neighborhood: 'Bairro do Admin',
-      city: 'Cidade do Admin',
-      state: 'Estado do Admin',
-      zip: '00000-000',
-    },
-  }
+import { prisma } from '@/lib/prisma'
 
-  const passwordEncrypted = await bcrypt.hash(data.password, 10)
+interface Address {
+  street: string
+  number: string
+  neighborhood: string
+  city: string
+  state: string
+  zip: string
+}
+
+interface IRequest {
+  name: string
+  email: string
+  username: string
+  role: string
+  password?: string
+  cpf: string
+  phone: string
+  address: Address
+}
+
+export async function createUser({
+  name,
+  email,
+  username,
+  role,
+  password,
+  cpf,
+  phone,
+  address,
+}: IRequest) {
+  const passwordEncrypted = await bcrypt.hash(password || '', 10)
 
   await prisma.user.create({
     data: {
-      name: data.name,
-      email: data.email,
-      username: data.username || '',
-      role: data.role,
-      cpf: data.cpf || '',
-      phone: data.phone || '',
+      name,
+      email,
+      username: username || '',
+      role,
+      cpf: cpf || '',
+      phone: phone || '',
       password: passwordEncrypted,
       customerInfo: {
         create: {
           isRenter: true,
           lastAddress: {
             create: {
-              street: data.address?.street || '',
-              number: data.address?.number || '',
-              neighborhood: data.address?.neighborhood || '',
-              city: data.address?.city || '',
-              state: data.address?.state || '',
-              zip: data.address?.zip || '',
+              street: address?.street || '',
+              number: address?.number || '',
+              neighborhood: address?.neighborhood || '',
+              city: address?.city || '',
+              state: address?.state || '',
+              zip: address?.zip || '',
             },
           },
         },

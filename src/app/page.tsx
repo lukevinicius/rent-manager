@@ -1,6 +1,7 @@
-import { Logo } from '@/components/logo'
 import { useAuth } from '@/hooks/useAuth'
 import Link from 'next/link'
+
+import { Logo } from '@/components/logo'
 
 export default function Home() {
   const { user } = useAuth()

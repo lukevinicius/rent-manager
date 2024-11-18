@@ -1,4 +1,3 @@
-import { fetchContractsByUser } from '@/actions/fetch-contracts-by-user'
 import { DetailsButton } from '@/components/details-buttom'
 import {
   Table,
@@ -8,6 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+
+import { fetchContractsByUser } from '@/actions/fetch-contracts-by-user'
 
 const headCells = ['Nome', 'CPF', 'Email', 'Telefone', 'Ações']
 

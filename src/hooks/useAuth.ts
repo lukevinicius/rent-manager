@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers'
 import { IUser } from '@/domain/interfaces/User'
+import { cookies } from 'next/headers'
 
 export function useAuth() {
   const authCookie = cookies().get('session')?.value || '{}'

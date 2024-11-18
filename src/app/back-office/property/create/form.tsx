@@ -1,18 +1,20 @@
 'use client'
 
 import { useState } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { createProperty } from '@/actions/create-property'
 import { useEdgeStore } from '@/lib/edgestore'
 
 import { Form } from '@/components/Form'
-import { Button } from '@/components/ui/button'
-import { Loader } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { SingleImageDropzone } from '@/components/single-image-dropzone'
+import { Button } from '@/components/ui/button'
+
+import { createProperty } from '@/actions/create-property'
 
 const formSchema = z.object({
   // image is of type File
@@ -44,16 +46,21 @@ export function CreatePropertyForm() {
   const handleCreateProperty: SubmitHandler<FormProps> = async (
     data: FormProps,
   ) => {
-    const res = await edgestore.publicFiles.upload({
-      file: file as File,
-      /* onProgressChange: (progress) => {
-        // you can use this to show a progress bar
-        console.log(progress)
-      }, */
-    })
+    let imageUrl = ''
+    if (file) {
+      const { url } = await edgestore.publicFiles.upload({
+        file: file as File,
+        /* onProgressChange: (progress) => {
+          // you can use this to show a progress bar
+          console.log(progress)
+        }, */
+      })
+
+      imageUrl = url
+    }
 
     await createProperty({
-      image: res.url,
+      image: imageUrl,
       name: data.name,
       zip: data.zip,
       state: data.state,
@@ -78,7 +85,9 @@ export function CreatePropertyForm() {
             setFile(file as File)
           }}
         />
-        <button
+        <Button
+          className="bg-blue-600 font-bold hover:bg-blue-700"
+          type="button"
           onClick={async () => {
             if (file) {
               const res = await edgestore.publicFiles.upload({
@@ -94,8 +103,8 @@ export function CreatePropertyForm() {
             }
           }}
         >
-          Upload
-        </button>
+          Subir imagem
+        </Button>
         <div className="grid-cols-2 gap-3 max-lg:space-y-3 lg:grid">
           <Form.Field>
             <Form.Label htmlFor="name">Nome do imóvel</Form.Label>

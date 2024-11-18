@@ -1,7 +1,8 @@
 'use client'
 
-import { updatePaymentStatus } from '@/actions/update-payment-status'
 import { Button } from '@/components/ui/button'
+
+import { updatePaymentStatus } from '@/actions/update-payment-status'
 
 interface PaymentButtonProps {
   paymentId: string

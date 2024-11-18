@@ -1,6 +1,7 @@
+import { api } from '@/services/api'
+
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import { api } from '@/services/api'
 
 interface DeletePropertyButtonProps {
   propertyId: string

@@ -1,6 +1,8 @@
 import { useAuth } from '@/hooks/useAuth'
-import { Profile } from './Profile'
+
 import { Logo } from '@/components/logo'
+
+import { Profile } from './Profile'
 
 export function Header() {
   const { user } = useAuth()

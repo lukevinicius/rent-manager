@@ -1,3 +1,4 @@
+import { EditButton } from '@/components/edit-buttom'
 import {
   Table,
   TableBody,
@@ -6,8 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+
 import { DeleteUserButton } from './delete-user-buttom'
-import { EditButton } from '@/components/edit-buttom'
 
 interface UserDataTableProps {
   users: {

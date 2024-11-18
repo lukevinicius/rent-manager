@@ -1,9 +1,10 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { toast } from '@/components/ui/use-toast'
 import { api } from '@/services/api'
 import { Trash } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import { toast } from '@/components/ui/use-toast'
 
 export function DeleteUserButton({ userId }: { userId: string }) {
   async function handleDeleteUser() {

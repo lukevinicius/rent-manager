@@ -1,14 +1,16 @@
 'use client'
 
-import { Form } from '@/components/Form'
-import { Button } from '@/components/ui/button'
-import { api } from '@/lib/axios'
 import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { RiLoaderLine } from 'react-icons/ri'
 import { z } from 'zod'
+
+import { api } from '@/lib/axios'
+
+import { Form } from '@/components/Form'
+import { Button } from '@/components/ui/button'
 
 const createUserFormSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),

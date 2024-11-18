@@ -1,9 +1,12 @@
 'use client'
 
 import * as React from 'react'
+
+import dayjs from 'dayjs'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
@@ -11,7 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import dayjs from 'dayjs'
+
 dayjs.locale('pt-br')
 
 interface DatePickerProps {

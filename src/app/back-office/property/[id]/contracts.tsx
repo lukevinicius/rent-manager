@@ -1,3 +1,4 @@
+import { DetailsButton } from '@/components/details-buttom'
 import {
   Table,
   TableBody,
@@ -6,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DetailsButton } from '@/components/details-buttom'
+
 import { fetchContractsByProperty } from '@/actions/fetch-contracts-by-property'
 
 interface contractsProps {

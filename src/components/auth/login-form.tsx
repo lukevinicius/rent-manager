@@ -1,13 +1,16 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 
-import { login } from '@/actions/login'
 import { LoginSchema, LoginSchemaType } from '@/schemas/login'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
 
+import { CardWrapper } from '@/components/auth/card-wrapper'
+import { FormError } from '@/components/form-error'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -16,11 +19,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { CardWrapper } from '@/components/auth/card-wrapper'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { FormError } from '@/components/form-error'
 import { useToast } from '@/components/ui/use-toast'
+
+import { login } from '@/actions/login'
 
 export function LoginForm() {
   const { toast } = useToast()
@@ -36,8 +38,8 @@ export function LoginForm() {
   })
 
   function onSubmit(values: LoginSchemaType) {
-    startTransition(() => {
-      login(values).then((data) => {
+    startTransition(async () => {
+      await login(values).then((data) => {
         setError(data.error)
 
         if (!data.error) {
@@ -96,7 +98,11 @@ export function LoginForm() {
           </div>
           {error && <FormError message={error} />}
           <Button type="submit" className="w-full" disabled={isPending}>
-            Login
+            {isPending ? (
+              <Loader2 className="h-6 w-6 animate-spin" />
+            ) : (
+              'Entrar'
+            )}
           </Button>
         </form>
       </Form>

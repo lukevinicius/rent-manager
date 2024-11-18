@@ -1,9 +1,10 @@
 'use server'
 
-import { compare } from 'bcryptjs'
-import { cookies } from 'next/headers'
-import jwt from 'jsonwebtoken'
 import { LoginSchema, LoginSchemaType } from '@/schemas/login'
+import { compare } from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import { cookies } from 'next/headers'
+
 import { prisma } from '@/lib/prisma'
 
 export async function login(values: LoginSchemaType) {
@@ -17,35 +18,41 @@ export async function login(values: LoginSchemaType) {
 
   const { username, password } = validatedFields.data
 
+  const user = await prisma.user.findFirst({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+      name: true,
+      username: true,
+      email: true,
+      role: true,
+      password: true,
+    },
+  })
+
+  if (!user || !user.password) {
+    return {
+      error: 'Invalid credentials!',
+    }
+  }
+
+  const doestPasswordMatches = await compare(password, user.password)
+
+  if (!doestPasswordMatches) {
+    return {
+      error: 'Invalid credentials!',
+    }
+  }
+
+  if (user.role === 'CUSTOMER') {
+    return {
+      error: 'Invalid credentials!',
+    }
+  }
+
   try {
-    const user = await prisma.user.findFirst({
-      where: {
-        username,
-      },
-      select: {
-        id: true,
-        name: true,
-        username: true,
-        email: true,
-        role: true,
-        password: true,
-      },
-    })
-
-    if (!user || !user.password) {
-      return {
-        error: 'Invalid credentials!',
-      }
-    }
-
-    const doestPasswordMatches = await compare(password, user.password)
-
-    if (!doestPasswordMatches) {
-      return {
-        error: 'Invalid credentials!',
-      }
-    }
-
     const token = await jwt.sign(
       {
         role: user.role,

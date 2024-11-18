@@ -1,6 +1,7 @@
-import CreateContractForm from './form'
-import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
 import { fetchProperties } from '@/actions/fetch-properties'
+import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
+
+import CreateContractForm from './form'
 
 async function getDataToContract() {
   const customers = await fetchUsersByRole({ role: 'CUSTOMER' })

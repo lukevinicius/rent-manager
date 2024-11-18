@@ -1,19 +1,21 @@
 'use client'
 
 import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useEdgeStore } from '@/lib/edgestore'
 
 import { Form } from '@/components/Form'
-import { Button } from '@/components/ui/button'
-import { Loader2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { updateProperty } from '@/actions/update-property'
-import { useToast } from '@/components/ui/use-toast'
 import { SingleImageDropzone } from '@/components/single-image-dropzone'
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
+
+import { updateProperty } from '@/actions/update-property'
 
 const formSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),

@@ -1,9 +1,15 @@
 'use client'
 
+import { useState, useTransition } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { FormError } from '@/components/form-error'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -13,12 +19,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useState, useTransition } from 'react'
-import { Button } from '@/components/ui/button'
-import { Loader } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+
 import { updateCustomer } from '@/actions/update-customer'
-import { FormError } from '@/components/form-error'
 
 interface UpdateCustomerFormProps {
   customer: {

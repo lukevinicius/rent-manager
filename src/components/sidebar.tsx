@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import { HandCoins, Home, ScrollText, UserCog, UsersRound } from 'lucide-react'
+import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 
-import { SidebarItem } from './sidebar-item'
 import { Logo } from './logo'
+import { SidebarItem } from './sidebar-item'
 
 type Props = {
   className?: string

@@ -1,10 +1,13 @@
-import { getContractById } from '@/actions/get-contract-by-id'
-import { DetailsButton } from '@/components/details-buttom'
-import { PaymentsList } from '@/components/payments-list'
-import { Card } from '@/components/ui/card'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { RiArticleFill, RiContactsFill, RiHome2Fill } from 'react-icons/ri'
+
+import { DetailsButton } from '@/components/details-buttom'
+import { PaymentsList } from '@/components/payments-list'
+import { Card } from '@/components/ui/card'
+
+import { getContractById } from '@/actions/get-contract-by-id'
+
 import { UpdatePaymentValueButton } from './update-payments-value-button'
 
 interface ContractByIdProps {

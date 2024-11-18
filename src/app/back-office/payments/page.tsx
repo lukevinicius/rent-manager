@@ -1,8 +1,9 @@
+import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 
-import { fetchPayments } from '@/actions/fetch-payments'
 import { PaymentsList } from '@/components/payments-list'
-import dayjs from 'dayjs'
+
+import { fetchPayments } from '@/actions/fetch-payments'
 
 export default async function Payments() {
   const payments = await fetchPayments({ limitDate: dayjs().toDate() })

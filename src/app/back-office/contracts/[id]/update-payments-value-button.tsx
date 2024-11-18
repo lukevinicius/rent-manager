@@ -1,5 +1,8 @@
 'use client'
 
+import { useState } from 'react'
+
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -10,9 +13,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import { useState } from 'react'
+
 import { updatePaymentsValue } from '@/actions/update-payment-value'
 
 interface UpdatePaymentValueButtonProps {

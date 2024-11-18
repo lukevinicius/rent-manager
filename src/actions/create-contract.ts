@@ -1,8 +1,9 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
 import dayjs from 'dayjs'
 import { revalidatePath } from 'next/cache'
+
+import { prisma } from '@/lib/prisma'
 
 interface IRequest {
   startDate: string

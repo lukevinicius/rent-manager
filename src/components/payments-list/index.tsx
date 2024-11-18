@@ -1,3 +1,6 @@
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
+
 import {
   Table,
   TableBody,
@@ -6,8 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import dayjs from 'dayjs'
-import 'dayjs/locale/pt-br'
+
 import { PaymentButton } from './payment-button'
 import { UpdatePaymentDateButton } from './update-payment-date-button'
 

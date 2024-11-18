@@ -1,8 +1,9 @@
 'use client'
 
+import { ReactElement } from 'react'
+
 import Link, { LinkProps } from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ReactElement } from 'react'
 
 interface ActiveLinkProps extends LinkProps {
   children: ReactElement

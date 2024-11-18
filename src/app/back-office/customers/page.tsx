@@ -1,8 +1,11 @@
-import { Button } from '@/components/ui/button'
-import { CustomersDataTable } from './data-table'
-import Link from 'next/link'
-import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
 import { UserTypes } from '@/domain/enums/User'
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
+
+import { fetchUsersByRole } from '@/actions/fetch-users-by-role'
+
+import { CustomersDataTable } from './data-table'
 
 export default async function Customers() {
   const customers = await fetchUsersByRole({ role: UserTypes.CUSTOMER })

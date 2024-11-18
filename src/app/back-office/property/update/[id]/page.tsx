@@ -1,4 +1,5 @@
 import { getPropertyById } from '@/actions/get-property-by-id'
+
 import { PropertyUpdateForm } from './update-form'
 
 interface UpdatePropertyProps {

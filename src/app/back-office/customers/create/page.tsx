@@ -1,14 +1,16 @@
 'use client'
 
-import { Form } from '@/components/Form'
-import { Button } from '@/components/ui/button'
-import { api } from '@/lib/axios'
 import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { RiLoaderLine } from 'react-icons/ri'
 import { z } from 'zod'
+
+import { Form } from '@/components/Form'
+import { Button } from '@/components/ui/button'
+
+import { createUser } from '@/actions/create-user'
 
 const createUserFormSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
@@ -40,22 +42,22 @@ export default function CreateUser() {
   const handleCreateUser: SubmitHandler<CreateUserFormProps> = async (
     data: CreateUserFormProps,
   ) => {
-    await api
-      .post('/users/create-user', {
-        name: data.name,
-        email: data.email,
-        role: 'CUSTOMER',
-        cpf: data.cpf,
-        phone: data.phone,
-        address: {
-          zip: data.zip,
-          state: data.state,
-          city: data.city,
-          neighborhood: data.neighborhood,
-          street: data.street,
-          number: data.number,
-        },
-      })
+    await createUser({
+      name: data.name,
+      username: data.email,
+      email: data.email,
+      role: 'CUSTOMER',
+      cpf: data.cpf,
+      phone: data.phone,
+      address: {
+        zip: data.zip,
+        state: data.state,
+        city: data.city,
+        neighborhood: data.neighborhood,
+        street: data.street,
+        number: data.number,
+      },
+    })
       .then(() => {
         toast({
           title: 'Cliente criado com sucesso',
@@ -63,7 +65,7 @@ export default function CreateUser() {
           duration: 3000,
           isClosable: true,
         })
-        router.push('/customers')
+        router.push('/back-office/customers')
       })
       .catch((error) => {
         toast({

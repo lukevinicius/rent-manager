@@ -1,7 +1,7 @@
+import { Search } from 'lucide-react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import { Search } from 'lucide-react'
 
 interface EditButtomProps {
   href: string

@@ -1,8 +1,9 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+
+import { Button } from '@/components/ui/button'
 
 export function EditCustomerButton({ userId }: { userId: string }) {
   const router = useRouter()

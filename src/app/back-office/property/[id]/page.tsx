@@ -1,7 +1,9 @@
-import { PropertyContracts } from './contracts'
-import { getPropertyById } from '@/actions/get-property-by-id'
-import { Card } from '@/components/ui/card'
 import { EditButton } from '@/components/edit-buttom'
+import { Card } from '@/components/ui/card'
+
+import { getPropertyById } from '@/actions/get-property-by-id'
+
+import { PropertyContracts } from './contracts'
 
 export default async function PropertyDetails({
   params,

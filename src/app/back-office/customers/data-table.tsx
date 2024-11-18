@@ -1,3 +1,5 @@
+import { DetailsButton } from '@/components/details-buttom'
+import { EditButton } from '@/components/edit-buttom'
 import {
   Table,
   TableBody,
@@ -6,8 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { EditButton } from '@/components/edit-buttom'
-import { DetailsButton } from '@/components/details-buttom'
+
 /* import { DeleteUserButton } from './delete-customer-buttom' */
 
 interface UserDataTableProps {

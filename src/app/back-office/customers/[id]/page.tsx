@@ -1,7 +1,9 @@
-import { CustomerDetailsCards } from './customer-details-cards'
-import { getCustomerById } from '@/actions/get-customer-by-id'
 import { EditCustomerButton } from '@/app/back-office/customers/[id]/edit-customer-buttom'
+
+import { getCustomerById } from '@/actions/get-customer-by-id'
+
 import { CustomerContracts } from './customer-contracts'
+import { CustomerDetailsCards } from './customer-details-cards'
 
 export default async function UserById({ params }: { params: { id: string } }) {
   const { user, error } = await getCustomerById({

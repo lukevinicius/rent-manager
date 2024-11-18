@@ -1,13 +1,14 @@
-import { signOut } from '@/actions/sign-out'
+import { RiLogoutBoxRLine } from 'react-icons/ri'
 
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { RiLogoutBoxRLine } from 'react-icons/ri'
+
+import { signOut } from '@/actions/sign-out'
 
 export function Profile() {
   return (
